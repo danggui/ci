@@ -1,9 +1,9 @@
 <template>
   <div class="navbar">
+    <!--
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
-
+    -->
     <breadcrumb class="breadcrumb-container"/>
-
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <lang-select class="international right-menu-item"/>
@@ -20,6 +20,7 @@ import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import LangSelect from '@/components/LangSelect'
 
+
 export default {
   components: {
      Screenfull,
@@ -27,6 +28,7 @@ export default {
     Hamburger,
     ErrorLog,
     LangSelect,
+ 
    
    
   },
@@ -52,6 +54,7 @@ export default {
   height: 68px;
   line-height: 68px;
   border-radius: 0px !important;
+  border-bottom: 1px solid #FFFFFF;
   .hamburger-container {
     line-height: 76px;
     height: 68px;

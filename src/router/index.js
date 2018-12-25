@@ -28,7 +28,7 @@ export const constantRouterMap = [
           path: 'notice',
           component: () => import('@/views/notice/index'),
           name: 'Notice',
-          meta: { title: 'notice', icon: 'notice', noCache: true }
+          meta: { title: 'notice', icon: 'dashboard', noCache: true }
         }
       ]
     },
