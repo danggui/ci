@@ -53,13 +53,14 @@ export default {
      background-color: #EBEBEB;
     @include clearfix;
     position: relative;
-    height: 100%;
+    min-height: calc(100vh - 68px);
     width: 100%;
     &.mobile.openSidebar{
       position: fixed;
       top: 0;
     }
   }
+  
   .drawer-bg {
     background: #000;
     opacity: 0.3;

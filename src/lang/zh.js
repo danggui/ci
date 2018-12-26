@@ -98,5 +98,28 @@ export default {
     close: '关闭',
     closeOthers: '关闭其它',
     closeAll: '关闭所有'
+  },
+  notice:{
+    instruction:'为了能准确、高效、快速地处理您的理赔申请， 请在理赔申请前， 仔细阅读下列理赔须知：',
+    online_pay:'线上理赔',
+    offline_pay:'线下理赔',
+    material:'理赔申请材料',
+    detail:'受理范围及限额说明',
+    alert:'请根据下表提交完整的申请材料，如有遗漏可能会导致理赔无法正常进行',
+    emergency:'门急诊费用',
+    hospitalize:'住院费用',
+    benefit:' 住院津贴',
+    woman_benefit:'女性生育费用',
+    disability:'疾病身故/伤残',
+    terrible:'重大疾病等',
+    money_check:'单次理赔发票金额',
+    in:'（含）以内',
+    out:'以上'
+  },
+  download:{
+    team_insurance_apply:'团体医疗保险理赔申请书',
+    insurance_notice:'出险通知书',
+    pay_approve:'赔款授权书'
+
   }
 }

@@ -23,7 +23,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .main_page{
   background:url("/static/images/back.png") no-repeat;
-  background-size: cover;
-  height: 290px;
+  background-size: 100% 290px;
+  
 }
 </style>
