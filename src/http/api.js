@@ -11,7 +11,7 @@ export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseURL,
-      headers: {},
+      headers: config.headers,
       transformResponse: [function (data) {
       }]
     })
@@ -28,7 +28,7 @@ export default function $axios(options) {
           config.headers.accessToken = token
         } else {
           // 重定向到登录页面
-          router.push('/login')
+          //router.push('/notice')
         }
         // 3. 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method === 'post') {

@@ -1,13 +1,17 @@
 <template>
   <div v-if="!item.hidden&&item.children" class="menu-wrapper">
+    <template v-if="item.title">
+       
+    </template>
 
-    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+    <template v-else-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon"  :title="generateTitle(onlyOneChild.meta.title)"  />
         </el-menu-item>
       </app-link>
     </template>
+     
 
     <el-submenu v-else ref="submenu" :index="resolvePath(item.path)">
       <template slot="title">

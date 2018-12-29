@@ -1,50 +1,88 @@
 <template>
   <div class="download-container ">
     <div class="file-list">
-        <div class="file">
+       <div class="file" v-for="(item,index) in value" :key="index" >
         <div class="file-title">
-        <div class="file-arrow">
-        <svg-icon class-name="theme-color" icon-class="arrow_show" />
+            <div>
+            <span class="file-arrow">
+                 <arrow  @arrowAction="toggleInfo" :is-active="item.isActive" :index="index"/>
+            </span>
+            <span class="file-name">{{ $t(item.name) }}</span>
+            </div>
+            <el-row>
+                <el-button size="medium" type="primary" plain>  {{ $t(download) }}</el-button>
+             </el-row>
         </div>
-        <div class="file-name">
-        {{ $t('download.team_insurance_apply') }}
+        <div v-show="item.isShow" class="file-content">
+               {{item.description}}
         </div>
         </div>
-        <div class="file-content">
-        
-        </div>
-        
-        </div>
+       
+
     </div>
   </div>
 </template>
 <script>
-
-
+import Arrow from '@/components/Arrow'
 export default {
   name: 'Download',
+  components: {Arrow},
   data() {
     return {
-     
+        value:[
+                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false},
+                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true},
+                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true}    
+              ] ,
+        download:'download.download',
+        isActive:true
     }
+  },
+  methods:{
+      toggleInfo(index){
+        this.value[index].isActive = !this.value[index].isActive;
+         this.value[index].isShow = !this.value[index].isShow;  
+      }
+   
   }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scope>
-.file{
+.download-container{
+    padding: 0 50px;
+    .file{
     border-bottom:1px solid #ededed;
 }
+    .file:last-child{
+        border: none;
+    }
 .file-title{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #333333;
     font-size: 16px;
+    font-family:PingFang-SC-Regular;
+    font-weight:400;
+    margin: 30px 0;
     .file-arrow:first-child{
-        margin-right: 10px;
+        margin-right: 5px;
     }
 }
-.theme-color{
-    color:#8289BC
+.file-name{
+    vertical-align: top;
+}
+.file-content{
+    margin-bottom: 30px;
+    margin-left: 30px;
+    word-break: break-word;
+}
+
+.middle-size{
+    font-size: 20px;
+}
+
 }
 
 </style>

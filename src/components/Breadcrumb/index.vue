@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
       <el-breadcrumb-item >
-        <span >///  {{ generateTitle(item.meta.title) }}</span>
+        <span ><img src="/static/images/start.png">{{ generateTitle(item.meta.title) }}</span>
       </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -39,6 +39,7 @@ export default {
     font-size: 18px;
     line-height: 68px;
     margin-left: 10px;
+    margin-left: 2.5%;
     .no-redirect {
       color: #97a8be;
       cursor: text;
@@ -48,6 +49,9 @@ export default {
     }
     span{
       color: white!important;
+    }
+    img{
+      margin-right: 10px;
     }
   }
 

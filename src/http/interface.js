@@ -5,31 +5,24 @@ import axios from './api'
  */
 
 // 单独导出
-export const query = () => {
+
+export const isMaterial = (id) => {
     return axios({
-        url: '/query',
-        method: 'get'
-    })
-}
-  
-export const list = (id) => {
-    return axios({
-        url: `/list${id}`,
+        url: `/claim/claimMaterial/${id}`,
         method: 'get'
     })
 }
 
-export const upload = data => {
+export const showInfo = (id) => {
     return axios({
-        url: '/upload',
-        method: 'post',
-        data
+        url: `/personSecurity/familySecurityInfo/${id}`,
+        method: 'get'
     })
 }
+
 
 // 默认全部导出
 export default {
-    query,
-    list,
-    upload
+    isMaterial,
+    showInfo
 }

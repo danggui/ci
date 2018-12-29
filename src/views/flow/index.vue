@@ -1,6 +1,6 @@
 <template>
   <div class="flow-container ">
-    
+    <img src="@/assets/images/flow.png">
   </div>
 </template>
 <script>
@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scope>
-
+.flow-container{
+  padding: 15px 80px;
+}
 
 </style>

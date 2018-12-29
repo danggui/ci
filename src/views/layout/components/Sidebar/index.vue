@@ -20,9 +20,6 @@ import { mapGetters } from 'vuex'
 import SidebarItem from './SidebarItem'
 import SidebarTitle from './SidebarTitle'
 import { constantRouterMap } from '@/router'
-
-
-
 export default {
   components: { SidebarItem,SidebarTitle },
   data:function(){
@@ -34,14 +31,20 @@ export default {
     ...mapGetters([
       'sidebar'
     ]),
+    isCollapse(){
+      return false;
+    }
+    /*
     isCollapse() {
       return !this.sidebar.opened
     }
+    */
   }
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .sidebar-container .el-menu{
     background-color: #FFFFFF!important;
+    min-height: calc(100vh - 68px + 17px);
   }
 </style>

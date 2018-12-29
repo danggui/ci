@@ -119,7 +119,8 @@ export default {
   download:{
     team_insurance_apply:'团体医疗保险理赔申请书',
     insurance_notice:'出险通知书',
-    pay_approve:'赔款授权书'
+    pay_approve:'赔款授权书',
+    download:'点击下载'
 
   }
 }

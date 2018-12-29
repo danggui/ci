@@ -3,6 +3,7 @@ const getters = {
   language: state => state.app.language,
   size: state => state.app.size,
   device: state => state.app.device,
+  theme:state => state.app.theme,
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
   token: state => state.user.token,
@@ -14,6 +15,11 @@ const getters = {
   setting: state => state.user.setting,
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
-  errorLogs: state => state.errorLog.logs
+  errorLogs: state => state.errorLog.logs,
+
+  material:state => state.appMain.material
+
+  
+
 }
 export default getters

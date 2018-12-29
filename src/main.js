@@ -11,12 +11,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/styles/index.scss' // global css
 //import './common/fonts/iconfont.css'
 
+import '@/theme/purple/index.css'
 import i18n from './lang' // Internationalization
 import './icons' // icon
 //import './errorLog' // error log
-
+import api from '@/http'
 Vue.config.productionTip = false
-
 /*
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
@@ -24,7 +24,7 @@ Vue.use(Element, {
 })
 */
 Vue.use(Element)
-
+Vue.use(api)
 
 
 new Vue({

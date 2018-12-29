@@ -64,9 +64,8 @@
         
      <div class="notice-table-list">
      <el-table
-    :data="tableData"
-    border
-    style="" class="table1"> 
+    :data="tableData" class="table1"
+    border style="width: 100%"> 
     <el-table-column
       prop="material"
       label="理赔材料"
@@ -89,24 +88,24 @@
     </el-table-column>
   </el-table>
        </div>
-        <div class="notice-card-list">
-            <div class="notice-card2 ">
+        <div class="notice-card-list2">
+            <div class="notice-card ">
               <div class="card-flow"><span class="middle-icon"> 1</span> <svg-icon class-name="middle-icon" icon-class="pill" /> </div>
               <div>病历上需清晰注明： 病情主诉、疾病诊断、检查、治疗、用药及剂量等</div>
             </div>
-            <div class="notice-card2 ">
+            <div class="notice-card ">
               <div class="card-flow"><span class="middle-icon"> 2</span> <svg-icon class-name="middle-icon" icon-class="record" /> </div>
               <div>病历上的记录与收据上的收费项目相符</div>
             </div>
-            <div class="notice-card2 ">
+            <div class="notice-card ">
               <div class="card-flow"><span class="middle-icon"> 3</span> <svg-icon class-name="middle-icon" icon-class="doctor" /> </div>
               <div>1. 收据上应有医院收费章 <br/>2. 病历修改需加盖医生章</div>
             </div>
-            <div class="notice-card2 ">
+            <div class="notice-card ">
               <div class="card-flow"><span class="middle-icon"> 4</span> <svg-icon class-name="middle-icon" icon-class="reservation" /> </div>
               <div>1. 病历上的诊病日期须与收据上的日期一致   <br/>2. 特殊原因请用文字说明</div>
             </div>
-            <div class="notice-card2 ">
+            <div class="notice-card ">
               <div class="card-flow"><span class="middle-icon"> 5</span> <svg-icon class-name="middle-icon" icon-class="me" /> </div>
               <div>1. 收据上的姓名无误 <br/> 2. 如有误必须由医院更正后加盖医院章</div>
             </div>
@@ -228,8 +227,15 @@ export default {
         }
         
       }
-      .notice-card2{
-        margin-right:20px;
+
+      
+    }
+    .notice-card-list2{
+      width: 848px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      .notice-card{
         padding: 0 6px;
         width: 152px;
         height: 120px;
@@ -241,10 +247,12 @@ export default {
         .card-flow{
           height: 50px;
           line-height: 50px;
-      
+          +div{
+            letter-spacing: 0px;
+            line-height: 18px;
+          }
         }
       }
-      
     }
     .notice-word-list{
        margin-top: 15px;

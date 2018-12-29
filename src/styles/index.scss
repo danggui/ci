@@ -4,7 +4,7 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 @import './btn.scss';
-@import './cdp_base.scss';
+//@import './cdp_base.scss';
 
 body {
   height: 100%;
@@ -191,4 +191,10 @@ code {
 
 .multiselect--active {
   z-index: 1000 !important;
+}
+
+// label/word color
+
+.theme-purple{
+  color: #8289BC;
 }

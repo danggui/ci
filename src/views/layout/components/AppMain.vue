@@ -1,7 +1,9 @@
 <template>
    <section class="app-main">
-     <div v-if="123" class="apply_notice">
+     <div v-if="material" class="apply_notice">
         <svg-icon class-name="main-icon" icon-class="biandongtongzhi" />你的理赔缺少申请材料，请点击【这里】补充材料。
+     </div>
+     <div v-else class="apply_notice_no">
      </div>
      <el-card class="box-card app_content">
     <transition name="fade-transform" mode="out-in">
@@ -17,16 +19,26 @@
   </section>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'AppMain',
+  created(){
+     this.$store.dispatch('checkMaterial', 11)
+  },
   computed: {
      cachedViews() {
       return this.$store.state.tagsView.cachedViews
     },
     key() {
-      return this.$route.fullPath
+      return this.$route.fullPath 
+    },
+    material(){
+       return this.$store.state.appMain.material
     }
-  }
+  },
+ 
+
 }
 </script>
 
@@ -52,6 +64,9 @@ export default {
   display: flex;
   align-items:center;
 
+}
+.apply_notice_no{
+  margin: 50px;
 }
 .main-icon{
   font-size: 22px;

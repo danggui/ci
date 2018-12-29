@@ -1,7 +1,5 @@
 //import { asyncRouterMap, constantRouterMap } from '@/router'
 import {constantRouterMap } from '@/router'
-
-
 const permission = {
   state: {
     routers: constantRouterMap,
@@ -20,6 +18,7 @@ const permission = {
         commit('SET_ROUTERS', roles)
         resolve()
       })
+      
     }
     
   }

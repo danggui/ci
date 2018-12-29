@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    
+    <!--
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
-    
+    -->
     <breadcrumb class="breadcrumb-container"/>
     <div class="right-menu">
       <template v-if="device!=='mobile'">
@@ -23,15 +23,13 @@ import LangSelect from '@/components/LangSelect'
 
 export default {
   components: {
-     Screenfull,
+    Screenfull,
     Breadcrumb,
     Hamburger,
     ErrorLog,
     LangSelect,
- 
-   
-   
   },
+
   computed: {
     ...mapGetters([
       'sidebar',
@@ -43,8 +41,7 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
-    },
-  
+    }
   }
 }
 </script>

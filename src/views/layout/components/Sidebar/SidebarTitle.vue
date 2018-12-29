@@ -1,6 +1,6 @@
 <template>
   <div class="company_title">
-     <img src={icon}>
+     <img :src="icon" />
   </div>
 </template>
 <script>
@@ -10,10 +10,11 @@ export default {
   },
   data() {
       return {
-       icon:null
+       icon: require('@/assets/images/logo.png')
       }
   },
   methods: {
+
 
   }
 }
@@ -22,6 +23,11 @@ export default {
 .company_title{
     height: 68px;
     line-height: 68px;
-    background: #EBEBEB
+    background: #EBEBEB;
+    text-align: center;
+    img{
+      vertical-align: middle;
+    
+    }
 }
 </style>

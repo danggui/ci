@@ -9,15 +9,10 @@ Vue.use(Router)
 
 export const constantRouterMap = [
   {
-    path: '/redirect',
+    title: '保险服务',
+    path: '/main',
     component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
+    redirect: 'main',
   },
     {
       path: '/',
@@ -28,7 +23,7 @@ export const constantRouterMap = [
           path: 'notice',
           component: () => import('@/views/notice/index'),
           name: 'Notice',
-          meta: { title: 'notice', icon: 'dashboard', noCache: true }
+          meta: { title: 'notice', icon: 'notice', noCache: true }
         }
       ]
     },
