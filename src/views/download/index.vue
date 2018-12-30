@@ -10,7 +10,7 @@
             <span class="file-name">{{ $t(item.name) }}</span>
             </div>
             <el-row>
-                <el-button size="medium" type="primary" plain>  {{ $t(download) }}</el-button>
+                <el-button size="medium" type="primary" plain > <a :href="item.src" target="_blank">{{ $t(download) }}</a></el-button>
              </el-row>
         </div>
         <div v-show="item.isShow" class="file-content">
@@ -29,20 +29,33 @@ export default {
   components: {Arrow},
   data() {
     return {
-        value:[
-                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false},
-                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true},
-                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true}    
-              ] ,
         download:'download.download',
         isActive:true
     }
   },
+  computed:{
+     value(){
+         return [
+                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false,src:''},
+                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true,src:''},
+                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true,src:''}    
+              ] 
+  }
+  },
+ 
+  created(){
+       this.$store.dispatch('downloadInfo',1)
+       this.value.forEach((item,index) => {
+                item.src=this.$store.state.download.link[index].filePath
+         });
+  },
+
   methods:{
       toggleInfo(index){
         this.value[index].isActive = !this.value[index].isActive;
          this.value[index].isShow = !this.value[index].isShow;  
       }
+    
    
   }
 }

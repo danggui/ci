@@ -12,6 +12,12 @@ export const isMaterial = (id) => {
         method: 'get'
     })
 }
+export const downloadMaterial = (id) => {
+    return axios({
+        url: `/claim/claimDatas/${id}`,
+        method: 'get'
+    })
+}
 
 export const showInfo = (id) => {
     return axios({
@@ -24,5 +30,6 @@ export const showInfo = (id) => {
 // 默认全部导出
 export default {
     isMaterial,
-    showInfo
+    showInfo,
+    downloadMaterial
 }

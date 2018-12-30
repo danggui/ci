@@ -6,6 +6,7 @@ import permission from './modules/permission'
 import tagsView from './modules/tagsView'
 import user from './modules/user'
 import appMain from './modules/appMain'
+import download from './modules/download'
 import apply from './modules/apply'
 import getters from './getters'
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
     tagsView ,
     user,
     appMain,
-    apply
+    apply,
+    download
   },
   getters
 })

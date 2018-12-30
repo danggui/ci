@@ -1,7 +1,7 @@
 export default {
     method: 'get',
     // 基础url前缀
-    baseURL: 'http://192.168.9.193:8090/ecosaasci_ned/api/ecosaas/ci',
+    baseURL: 'http://192.168.9.193:8090/ecosaasci/api/ecosaas/ci',
     // 请求头信息
     headers: {
       'Content-Type': 'application/json',

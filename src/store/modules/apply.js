@@ -1,7 +1,7 @@
 
 import {showInfo} from '@/http/interface'
 
-const appMain = {
+const apply = {
     state: {
         value: '',
         options:[],
@@ -15,8 +15,15 @@ const appMain = {
     },
 
     mutations: {
-        SET_MATERIAL: (state, data) => {
-           data.forEach((item, index)=> {
+        SET_INFO: (state, data) => {
+            state.options=[],
+            state.identify=[],
+            state.mobile=[],
+            state.email=[],
+            state.bank_name=[],
+            state.card_num=[],
+            state.card_holder=[],
+            data.forEach((item, index)=> {
             state.identify=state.identify.concat(item.idNumber)
             state.mobile=state.mobile.concat(item.mobile)
             state.email=state.email.concat(item.email)
@@ -35,7 +42,7 @@ const appMain = {
     actions: {
           showApply({ commit }, id) {
             showInfo(id).then( (response) => {
-               commit('SET_MATERIAL', response.data.familySecurity)
+               commit('SET_INFO', response.data.familySecurity)
             }).catch((error) => {
                 console.log(error);
             })
@@ -45,4 +52,4 @@ const appMain = {
     }
   }
   
-  export default appMain
+  export default apply

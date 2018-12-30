@@ -24,7 +24,8 @@ import { mapActions } from 'vuex'
 export default {
   name: 'AppMain',
   created(){
-     this.$store.dispatch('checkMaterial', 11)
+     this.$store.dispatch('checkMaterial', 1)
+     
   },
   computed: {
      cachedViews() {

@@ -13,7 +13,7 @@
      </div> 
      <div class="card-flex">
      <span class="demonstration">就诊人</span>
-     <el-select v-model="value"  size="small" placeholder="请选择"  width="306px" @change="getPerson">
+     <el-select v-model="value"  size="small"  width="306px" @change="getPerson">
       <el-option
       v-for="item in options"
       :key="item.value"
@@ -70,7 +70,8 @@ export default {
                     }
                 }]
             },
-              value: '',
+            value:''
+             
         }
     },
     computed:{
