@@ -8,6 +8,7 @@ import user from './modules/user'
 import appMain from './modules/appMain'
 import download from './modules/download'
 import apply from './modules/apply'
+import family from './modules/family'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
     user,
     appMain,
     apply,
-    download
+    download,
+    family
   },
   getters
 })

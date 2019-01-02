@@ -23,7 +23,7 @@ export const constantRouterMap = [
           path: 'notice',
           component: () => import('@/views/notice/index'),
           name: 'Notice',
-          meta: { title: 'notice', icon: 'notice', noCache: true }
+          meta: { title: 'notice', icon: 'notice', noCache: true, words:true, }
         }
       ]
     },
@@ -36,7 +36,7 @@ export const constantRouterMap = [
           path: '/flow',
           component: () => import('@/views/flow/index'),
           name: 'Flow',
-          meta: { title: 'flow', icon: 'flow', noCache: true }
+          meta: { title: 'flow', icon: 'flow', noCache: true, words:true, }
         }
       ]
     },
@@ -48,7 +48,7 @@ export const constantRouterMap = [
           path: '/download',
           component: () => import('@/views/download/index'),
           name: 'Download',
-          meta: { title: 'download', icon: 'download', noCache: true }
+          meta: { title: 'download', icon: 'download', noCache: true, words:true, }
         }
       ]
     },
@@ -60,7 +60,7 @@ export const constantRouterMap = [
           path: '/apply',
           component: () => import('@/views/apply/index'),
           name: 'Apply',
-          meta: { title: 'apply', icon: 'apply', noCache: true }
+          meta: { title: 'apply', icon: 'apply', noCache: true, words:false }
         }
       ]
     },
@@ -72,7 +72,7 @@ export const constantRouterMap = [
           path: '/family',
           component: () => import('@/views/family/index'),
           name: 'Family',
-          meta: { title: 'family', icon: 'family', noCache: true }
+          meta: { title: 'family', icon: 'family', noCache: true,words:false }
         }
       ]
     },
@@ -84,7 +84,7 @@ export const constantRouterMap = [
           path: '/claim',
           component: () => import('@/views/claim/index'),
           name: 'Claim',
-          meta: { title: 'claim', icon: 'claim', noCache: true }
+          meta: { title: 'claim', icon: 'claim', noCache: true,words:false }
         }
       ]
     },
@@ -96,7 +96,7 @@ export const constantRouterMap = [
           path: '/resource',
           component: () => import('@/views/resource/index'),
           name: 'Resource',
-          meta: { title: 'resource', icon: 'resource', noCache: true }
+          meta: { title: 'resource', icon: 'resource', noCache: true,words:false }
         }
       ]
     },

@@ -3,13 +3,15 @@ import {isMaterial} from '@/http/interface'
 
 const appMain = {
     state: {
-        material:true
+        material:true,
+      
     },
 
     mutations: {
         CHECK_MATERIAL: (state, isMaterial) => {
            state.material=isMaterial
-          }
+          },
+       
     },
   
     actions: {
@@ -21,8 +23,8 @@ const appMain = {
                 console.log(error);
             })
            
-          
           }
+         
   
     }
   }

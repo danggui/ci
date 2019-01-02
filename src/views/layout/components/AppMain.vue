@@ -1,12 +1,27 @@
 <template>
    <section class="app-main">
-     <div v-if="material" class="apply_notice">
-        <svg-icon class-name="main-icon" icon-class="biandongtongzhi" />你的理赔缺少申请材料，请点击【这里】补充材料。
+     <div v-if="material&&words" class="apply_notice">
+        <el-badge is-dot class="item red-item"><svg-icon class-name="main-icon" icon-class="biandongtongzhi" /></el-badge>你的理赔缺少申请材料，请点击【这里】补充材料。
      </div>
      <div v-else class="apply_notice_no">
      </div>
+     <div class="family-label" v-if="family">
+      <div class="family-status">
+      <div class="family-status-card"  :class="{'is-active':isActive,'theme-purple':isActive}" @click="changeStatus">
+     
+      </div>
+      <div class="family-status-card"  @click="changeStatus">
+     
+      </div>
+      <div class="family-status-card"  @click="changeStatus">
+     
+     </div>
+    </div>
+    
+
+     </div>
      <el-card class="box-card app_content">
-    <transition name="fade-transform" mode="out-in">
+      <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews" >
         <router-view :key="key"/>
       </keep-alive>
@@ -23,8 +38,14 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
   name: 'AppMain',
+  data(){
+   return {
+        isActive:true
+    }
+  },
   created(){
-     this.$store.dispatch('checkMaterial', 1)
+    this.$store.dispatch('checkMaterial', 1)
+    this.$store.dispatch('downloadInfo',1)
      
   },
   computed: {
@@ -36,14 +57,26 @@ export default {
     },
     material(){
        return this.$store.state.appMain.material
+    },
+    words(){
+      return this.$route.meta.words
+    },
+    family(){
+       return this.$route.meta.title=="family"
     }
+   
   },
+  methods:{
+    changeStatus(){
+      
+    }
+  }
  
 
 }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss" scope>
 .app-main {
   /*84 = navbar + tags-view = 50 +34 */
   min-height: calc(100vh - 68px);
@@ -67,7 +100,7 @@ export default {
 
 }
 .apply_notice_no{
-  margin: 50px;
+  margin: 30px;
 }
 .main-icon{
   font-size: 22px;
@@ -91,5 +124,10 @@ export default {
 .el-card__body{
   padding: 36px 44px;
 }
+.family-label{
+  height: 40px;
+}
+
+
 </style>
 

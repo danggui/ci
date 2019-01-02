@@ -10,10 +10,14 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    words:{
+      type: Boolean,
+      default:false
     }
   },
   render(h, context) {
-    const { icon, title } = context.props
+    const { icon, title,words} = context.props
     const vnodes = []
 
     if (icon) {

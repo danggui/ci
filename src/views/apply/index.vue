@@ -24,6 +24,15 @@
       <q-r  :label="item.value" :index="index"/>
          
  </div>
+ <div class="apply-upload">
+     <div class="check-label">
+      <el-checkbox v-model="checked">我已阅读并同意理赔须知内容</el-checkbox>
+      </div>
+      <div>
+           <el-button type="primary" :disabled="!checked">确认提交</el-button>
+           <el-button  plain  :disabled="!checked">保存成功</el-button>
+      </div>
+ </div>
   </div>
 </template>
 <script>
@@ -52,7 +61,10 @@ export default {
            {value:'费用明细'},
            {value:'检查报告'},
            {value:'其他附件'}
-           ]}
+           ],
+           checked: false,
+           }
+          
   },
   created(){
      this.$store.dispatch('showApply',1)
@@ -66,7 +78,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scope>
 .apply-container{
-   margin:  20px;
+   margin: 0 20px;
 }
 
 .apply-label{
@@ -78,6 +90,15 @@ export default {
 }
 .apply-qr{
      margin:  0 90px;
+}
+.apply-upload{
+     margin:  50px 90px;
+     .check-label{
+         margin: 30px 0;
+     }
+     button{
+         margin-right: 20px;
+     }
 }
 
 </style>

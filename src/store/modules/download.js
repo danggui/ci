@@ -3,7 +3,7 @@ import {downloadMaterial} from '@/http/interface'
 
 const download = {
     state: {
-        link:[234]
+        link:[]
     },
 
     mutations: {

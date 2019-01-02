@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { Navbar, Sidebar,AppMain,Right } from './components'
+import { Navbar, Sidebar,Right } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -17,10 +17,7 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain, 
     Right
-   
-  
   },
   mixins: [ResizeMixin],
   computed: {

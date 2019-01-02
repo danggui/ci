@@ -26,10 +26,20 @@ export const showInfo = (id) => {
     })
 }
 
+export const showFamily =() =>{
+    return axios(
+        {
+            url:`/personSecurity/familSecurityDetail/11/1`,
+            method:'get' 
+        }
+    )
+}
+
 
 // 默认全部导出
 export default {
     isMaterial,
     showInfo,
-    downloadMaterial
+    downloadMaterial,
+    showFamily
 }

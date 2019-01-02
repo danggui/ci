@@ -193,8 +193,14 @@ code {
   z-index: 1000 !important;
 }
 
+
+.red-item .el-badge__content.is-fixed.is-dot{
+  right: 19px;
+  top: 9px;
+}
+
 // label/word color
 
 .theme-purple{
-  color: #8289BC;
+  color: #8289BC!important;
 }

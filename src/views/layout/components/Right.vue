@@ -1,7 +1,7 @@
 <template>
   <div class="main_page">
     <navbar/>
-      <app-main/>
+    <app-main />
   </div>
 </template>
 
@@ -12,10 +12,8 @@ export default {
   name: 'Right',
   components: { Navbar,AppMain},
   computed: {
-
   },
   methods: {
- 
   }
 }
 </script>
