@@ -1,69 +1,65 @@
 <template>
   <div class="family-container ">
-   <div class="family-form" v-for="item in options" :key="item">
+      <div class="family-status">
+     
+      <family-card v-for="(item,index) in label" :status="item.status" :key="index" :index="index" :isActive="item.isActive" @labelAction="changeStatus"/>
+
+    </div>
+   <div class="family-form" v-for="(item,index) in options" :key="index">
       <div class="form-title"><svg-icon class-name="arrow-icon"  icon-class="double-arrow" />保单1</div>
       <div class="form-table">
-        <table-list :tableData="tableData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="true"/>
-        <table-list :tableData="detailData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="false" :period="period"/>
+        <table-list :tableData="tableData[index]"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="true"/>
+        <table-list :tableData="detailData[index]"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="false" :start="start[index]" :end="end[index]"/>
       </div>
    </div>
   </div>
 </template>
 <script>
 import TableList from '@/components/TableList'
+import FamilyCard from "@/components/FamilyCard"
 export default {
   name: 'Family',
-  components:{TableList},
+  components:{TableList,FamilyCard},
+  data(){
+    return {
+      label:[{
+          status:"生效中",isActive:true
+        },{
+          status:"待生效",isActive:false
+        },
+        {
+          status:"已生效",isActive:false
+        }]
+    }
+  },
   computed:{
      options(){
-          return [1,2,3]
+          return this.$store.state.family.options
     },
     tableData(){
-        return [
-        {key: '姓名', value: 'qweq'},
-        {key: '性别', value: '男'},
-        {key: '出生日期', value: '2017-03-01'},
-        {key: '身份证号', value: '34324234324'},
-        {key: '手机号码', value: '1232312321321321'},
-        {key: '电子邮箱', value: '1232132131@0930.com'},
-        {key: '银行卡', value: '12321321321321'},
-      ];
+        return  this.$store.state.family.tableData
         },
-      period(){
-        return "2312222222222222222222222222222222222"
+      start(){
+        return  this.$store.state.family.start
+      },
+      end(){
+        return  this.$store.state.family.end
       },
       detailData(){
-        return [
-          {
-            type:"qqweqw",
-            scope:'23423232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323',
-            amount:"一年"
-          },
-          {
-            type:"qqweqw",
-            scope:'23423232323232323232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323233232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323',
-            amount:"一年"
-          },
-          {
-            type:"qqweqw",
-            scope:'23423232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323',
-            amount:"一年"
-          }
-
-
-
-
-        ]
+        return this.$store.state.family.detailData
       }
   },
 
-  created(){
-       this.$store.dispatch('showFamilyInfo',1);
-        
-  },
+ 
 
   methods:{
-    
+    changeStatus(index){
+      this.label.forEach(item =>{
+        item.isActive=false
+      })
+        this.label[index].isActive=true
+         
+    }
    
   }
 }

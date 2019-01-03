@@ -70,31 +70,34 @@ export default {
                     }
                 }]
             },
-            value:''
+           
              
         }
     },
-    computed:{
+    computed:{  
+        value(){
+            return this.$store.state.apply.value
+            },
         options(){
             return this.$store.state.apply.options
         },
         identify(){
-            return  this.$store.state.apply.identify[1]
+            return  this.$store.state.apply.identify[0]
         },
         mobile(){
-            return  this.$store.state.apply.mobile[1]
+            return  this.$store.state.apply.mobile[0]
         },
         email(){
-            return  this.$store.state.apply.email[1]
+            return  this.$store.state.apply.email[0]
         },
         bank_name(){
-            return  this.$store.state.apply.bank_name[1]
+            return  this.$store.state.apply.bank_name[0]
         },
         card_num(){
-            return  this.$store.state.apply.card_num[1]
+            return  this.$store.state.apply.card_num[0]
         },
         card_holder(){
-            return  this.$store.state.apply.card_holder[1]
+            return  this.$store.state.apply.card_holder[0]
         }
     },
     methods:{

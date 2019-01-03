@@ -14,7 +14,7 @@
      <label-line  :title="title" :message="message"></label-line>
  </div>
  <div class="apply-card">
-     <card/>
+     <card />
  </div>
  <div class="apply-label">
      <label-line  :title="title2" :message="photoMessage"></label-line>
@@ -66,9 +66,8 @@ export default {
            }
           
   },
-  created(){
-     this.$store.dispatch('showApply',1)
-     },
+
+ 
   methods:{
      
    

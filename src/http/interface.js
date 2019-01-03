@@ -26,11 +26,12 @@ export const showInfo = (id) => {
     })
 }
 
-export const showFamily =() =>{
+export const showFamily =(personId,type) =>{
     return axios(
         {
-            url:`/personSecurity/familSecurityDetail/11/1`,
-            method:'get' 
+            url:`/personSecurity/familSecurityDetail/${personId}/${type}`,
+            method:'get' ,
+            
         }
     )
 }

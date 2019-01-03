@@ -1,8 +1,8 @@
 
 <template>
-<component v-bind="linkProps(to)">
-    <slot/>
-  </component>
+<router-link :to="to" @click.native="dispatchMy">
+  <slot/>
+</router-link>
 </template>
 
 <script>
@@ -14,25 +14,12 @@ export default {
       type: String,
       required: true
     }
+
   },
   methods: {
-    isExternalLink(routePath) {
-      return isExternal(routePath)
-    },
-    linkProps(url) {
-      if (this.isExternalLink(url)) {
-        return {
-          is: 'a',
-          href: url,
-          target: '_blank',
-          rel: 'noopener'
-        }
-      }
-      return {
-        is: 'router-link',
-        to: url
-      }
-    }
+     dispatchMy(){
+       this.$emit("clickItem",this.to);
+     }
   }
 }
 </script>

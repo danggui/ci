@@ -36,6 +36,7 @@ const apply = {
                     {label:item.name}
                 ))
             })
+            state.value=state.options[0].label
           }
     },
   

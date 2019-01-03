@@ -15,12 +15,12 @@
   </table>
   <table class="myTable2" :style="styleObject" v-else>
     <tr><th  class='theme-purple ' colspan="4">保单详情</th></tr>
-    <tr class="sub-th"><td>险种</td><td>保险范围</td><td>保额</td><td>保鲜期间</td></tr>
+    <tr class="sub-th"><td>险种</td><td>保险范围</td><td>保额</td><td>保险期间</td></tr>
     <tr v-for="index in tableData.length" :key="index">
      <td width="120px">{{tableData[index-1].type}}</td>
      <td class="td-content">{{tableData[index-1].scope}}</td>
      <td width="120px">{{tableData[index-1].amount}}</td>
-     <td v-if="index==1" :rowspan="tableData.length">{{period}}</td>
+     <td class="td-content" width="100px" v-if="index==1" :rowspan="tableData.length">{{start}}<br/>至<br/>{{end}}</td>
     </tr>
   </table>
 </template>
@@ -32,7 +32,7 @@ export default {
       styleObject: {},
     };
   },
-  props: ['tableData', 'tableStyle', 'showByRow','s_showByRow',"period"],
+  props: ['tableData', 'tableStyle', 'showByRow','s_showByRow',"start","end"],
   computed: {
     rowCount: function() {
       return Math.ceil(this.tableData.length/2);

@@ -1,16 +1,16 @@
 <template>
   <div class="download-container ">
     <div class="file-list">
-       <div class="file" v-for="(item,index) in value" :key="index" >
+       <div class="file" v-for="(item,index) in list" :key="index" >
         <div class="file-title">
             <div>
             <span class="file-arrow">
-                 <arrow  @arrowAction="toggleInfo" :is-active="item.isActive" :index="index"/>
+                 <arrow  @arrowAction="toggleInfo" :is-active="item.isActive" :rotate="item.isActive" :index="index"/>
             </span>
             <span class="file-name">{{ $t(item.name) }}</span>
             </div>
             <el-row>
-                <el-button size="medium" type="primary" plain > <a :href="item.src" target="_blank">{{ $t(download) }}</a></el-button>
+                <el-button size="medium" type="primary" plain > <a :href="link[index].filePath" target="_blank">{{ $t(download) }}</a></el-button>
              </el-row>
         </div>
         <div v-show="item.isShow" class="file-content">
@@ -26,32 +26,31 @@
 import Arrow from '@/components/Arrow'
 export default {
   name: 'Download',
+   props: {
+    link:{
+      type: Array,
+      default: []
+    }},
   components: {Arrow},
   data() {
     return {
         download:'download.download',
-        isActive:true
+        isActive:true,
+        list:[
+                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false},
+                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true},
+                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true}    
+              ] 
     }
   },
   computed:{
-     value(){
-         var list=[
-                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false,src:''},
-                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true,src:''},
-                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true,src:''}    
-              ] 
-          list.forEach((item,index) => {
-                item.src=this.$store.state.download.link[index].filePath
-           })
-         return list
-         
-  }
+     
   },
  
   methods:{
       toggleInfo(index){
-        this.value[index].isActive = !this.value[index].isActive;
-         this.value[index].isShow = !this.value[index].isShow;  
+        this.list[index].isActive = !this.list[index].isActive;
+         this.list[index].isShow = !this.list[index].isShow;  
       }
     
    

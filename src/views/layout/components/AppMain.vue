@@ -6,24 +6,13 @@
      <div v-else class="apply_notice_no">
      </div>
      <div class="family-label" v-if="family">
-      <div class="family-status">
-      <div class="family-status-card"  :class="{'is-active':isActive,'theme-purple':isActive}" @click="changeStatus">
-     
-      </div>
-      <div class="family-status-card"  @click="changeStatus">
-     
-      </div>
-      <div class="family-status-card"  @click="changeStatus">
-     
-     </div>
-    </div>
     
-
      </div>
      <el-card class="box-card app_content">
       <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews" >
-        <router-view :key="key"/>
+        <router-view v-if="download" :key="key" :link="list"/>
+        <router-view v-else :key="key"/>
       </keep-alive>
     </transition>
      </el-card>
@@ -38,16 +27,6 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
   name: 'AppMain',
-  data(){
-   return {
-        isActive:true
-    }
-  },
-  created(){
-    this.$store.dispatch('checkMaterial', 1)
-    this.$store.dispatch('downloadInfo',1)
-     
-  },
   computed: {
      cachedViews() {
       return this.$store.state.tagsView.cachedViews
@@ -63,13 +42,18 @@ export default {
     },
     family(){
        return this.$route.meta.title=="family"
+    },
+    download(){
+       return this.$route.meta.title=="download"
+    },
+    list(){
+      return this.$store.state.download.link
     }
+    
    
   },
   methods:{
-    changeStatus(){
-      
-    }
+    
   }
  
 

@@ -9,7 +9,7 @@
       mode="vertical"
       class=" el-menu-light"
     >
-    <sidebar-item v-for="route in routers" :key="route.path" :item="route"/>
+    <sidebar-item v-for="route in routers" :key="route.path" :item="route" />
     </el-menu>
   </el-scrollbar>
 </div>
