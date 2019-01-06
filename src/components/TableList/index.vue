@@ -1,5 +1,5 @@
 <template>
-  <table class="myTable" :style="styleObject" v-if="s_showByRow" >
+  <table class="myTable" :style="styleObject" v-if="s_showByRow==1" >
     <tr><th class='theme-purple' colspan="4">被保人信息</th></tr>
     <tr v-for="index in rowCount" :key="index">
       <td class="column">{{tableData[index*2-2].key}}</td>
@@ -13,7 +13,7 @@
       </template>
     </tr>
   </table>
-  <table class="myTable2" :style="styleObject" v-else>
+  <table class="myTable2" :style="styleObject" v-else-if="s_showByRow==2">
     <tr><th  class='theme-purple ' colspan="4">保单详情</th></tr>
     <tr class="sub-th"><td>险种</td><td>保险范围</td><td>保额</td><td>保险期间</td></tr>
     <tr v-for="index in tableData.length" :key="index">
@@ -23,16 +23,71 @@
      <td class="td-content" width="100px" v-if="index==1" :rowspan="tableData.length">{{start}}<br/>至<br/>{{end}}</td>
     </tr>
   </table>
+  <table class="myTable3" :style="styleObject" v-else-if="s_showByRow==3" >
+    <tr><th  class='theme-purple ' colspan="4">个人信息</th></tr>
+    <tr class="sub-th"><td>姓名</td><td>性别</td><td>出生日期</td><td>身份证件</td></tr>
+    <tr v-for="index in tableData.length" :key="index">
+     <td>{{tableData[index-1].name}}</td>
+     <td>{{tableData[index-1].sex}}</td>
+     <td>{{tableData[index-1].date}}</td>
+     <td>{{tableData[index-1].id}}</td>
+    </tr>
+  </table>
+   <table class="myTable3" :style="styleObject" v-else-if="s_showByRow==4" >
+    <tr><th  class='theme-purple ' colspan="5">家庭信息</th></tr>
+    <tr class="sub-th"><td>关系</td><td>姓名</td><td>性别</td><td>出生日期</td><td>身份证件</td></tr>
+    <tr v-for="(item,index) in tableData" :key="index">
+     <td>{{item.relation}}</td>
+     <td>{{item.name}}</td>
+     <td>{{item.sex}}</td>
+     <td>{{item.date}}</td>
+     <td>{{item.id}}</td>
+    </tr>
+  </table>
+   <table class="myTable3" :style="styleObject" v-else >
+    <tr><th  class='theme-purple ' colspan="2">上传凭证</th></tr>
+    <tr>
+        <td width="150" rowspan="2">银行卡照片</td>
+        <td class="file-content">
+            <div class="card-title">中国银行 88888888 ABC</div>
+            <div class="flex-layout-word"><div>正面</div><div>反面</div></div>
+            <div class="flex-layout">
+               <div class="card-layout"> 
+                  
+                   <img/>
+                   <img/>
+                </div>
+              <div class="card-layout"> 
+                   <img/>
+                    <img/>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td ></td>
+    </tr>
+    <tr>
+        <td width="150" rowspan="3">身份证照片</td>
+        <td ></td>
+    </tr>
+    <tr>
+        <td ></td>
+    </tr>
+    <tr>
+        <td ></td>
+    </tr>
+  </table>
 </template>
-
 <script>
 export default {
+  name:"TableList",
   data() {
     return {
       styleObject: {},
     };
   },
-  props: ['tableData', 'tableStyle', 'showByRow','s_showByRow',"start","end"],
+  props: ['tableData', 'tableStyle', 'showByRow','s_showByRow',"start","end","father"],
   computed: {
     rowCount: function() {
       return Math.ceil(this.tableData.length/2);
@@ -108,6 +163,72 @@ table.myTable2{
     .td-content{
         text-align: left;
     }
+   
+}
+table.myTable3{
+    border-collapse:collapse;
+    border:1px solid #DEDEDE;
+    width:100%;
+    font-size: 14px;
+    th{
+        background: #F6F6F6;
+        text-align: left;
+        padding-left: 25px;
+        font-weight: normal;
+        height: 36px;
+    }
+     .sub-th{
+         color: #999999;
+    
+    }
+    tr,td{
+        border:1px solid #DEDEDE;
+        height: 32px;
+        text-align: center;
+    }
+    tr:first-child{
+        border-top: none;
+    }
+     td{
+        padding: 8px 20px;
+        word-break: break-all;
+    }
+    td.file-content{
+         padding: 17px 32px;
+    }
+     td:first-child{
+           color: #999999
+       
+     }
+     .card-title{
+         text-align: left;
+         color: #333333;
+     }
+     .flex-layout-word{
+        display: flex;
+        color: #999999;
+        line-height: 17px;
+        margin: 10px 0;
+        text-align: left;
+        div{
+            width: 50%;
+        }
+         
+     }
+     .flex-layout{
+         display: flex;
+         .card-layout{
+             display: flex;
+             width: 50%;
+             img{
+             width: 110px;
+             height: 110px;
+             margin-right: 40px;
+         }
+         }
+        
+     }
+   
    
 }
 </style>

@@ -36,11 +36,31 @@ export const showFamily =(personId,type) =>{
     )
 }
 
+export const showClaim =(personId) =>{
+    return axios(
+        {
+            url:`/claim/myClaim/${personId}/0`,
+            method:'get' ,
+            
+        }
+    )
+}
+export const showResource =(personId) =>{
+    return axios(
+        {
+            url:`/personSecurity/mySecurity/${personId}`,
+            method:'get' ,
+        }
+    )
+}
+
 
 // 默认全部导出
 export default {
     isMaterial,
     showInfo,
     downloadMaterial,
-    showFamily
+    showFamily,
+    showClaim,
+    showResource
 }

@@ -9,6 +9,8 @@ import appMain from './modules/appMain'
 import download from './modules/download'
 import apply from './modules/apply'
 import family from './modules/family'
+import claim from './modules/claim'
+import resource from './modules/resource'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -23,7 +25,9 @@ const store = new Vuex.Store({
     appMain,
     apply,
     download,
-    family
+    family,
+    claim,
+    resource
   },
   getters
 })

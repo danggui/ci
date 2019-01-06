@@ -20,13 +20,13 @@ const family = {
            data.forEach((item,index)=>{
             let tableDataItem=[] ;
             let detailDataItem=[] ;
-            tableDataItem.push({key: '姓名',value:item.personSecurity.name})
-            tableDataItem.push({key: '性别',value:item.personSecurity.sex})
-            tableDataItem.push({key: '出生日期',value:item.personSecurity.birthDate})
-            tableDataItem.push({key: '身份证号',value:item.personSecurity.idNumber})
-            tableDataItem.push({key: '手机号码',value:item.personSecurity.mobile})
-            tableDataItem.push({key: '电子邮箱',value:item.personSecurity.email})
-            tableDataItem.push({key: '银行卡',value:item.personSecurity.bankName+" | "+item.personSecurity.bankAccount+" | "+item.personSecurity.accountName})
+            tableDataItem.push({key: '姓名',value:item.personSecurityInfoResponse.name})
+            tableDataItem.push({key: '性别',value:item.personSecurityInfoResponse.sexName})
+            tableDataItem.push({key: '出生日期',value:item.personSecurityInfoResponse.birthDate})
+            tableDataItem.push({key: '身份证件',value:item.personSecurityInfoResponse.idName+' |  '+ item.personSecurityInfoResponse.idNumber})
+            tableDataItem.push({key: '手机号码',value:item.personSecurityInfoResponse.mobile})
+            tableDataItem.push({key: '电子邮箱',value:item.personSecurityInfoResponse.email})
+            tableDataItem.push({key: '银行卡',value:item.personSecurityInfoResponse.bankName+" | "+item.personSecurityInfoResponse.bankAccount+" | "+item.personSecurityInfoResponse.accountName})
             
             item.planInsuranceKinds.forEach((item2,index2)=>{
                detailDataItem.push({
@@ -38,8 +38,8 @@ const family = {
             })
             state.tableData.push(tableDataItem)
             state.detailData.push(detailDataItem)
-            state.start.push(parseTime(item.personSecurity.createdDate))
-            state.end.push(parseTime(item.personSecurity.insuredDate))
+            state.start.push(parseTime(item.personSecurityInfoResponse.createdDate))
+            state.end.push(parseTime(item.personSecurityInfoResponse.insuredDate))
            })
           }
     },
@@ -47,7 +47,7 @@ const family = {
     actions: {
         showFamilyInfo({ commit },data){
             showFamily(data.id,data.type).then( (response) => {
-                commit('GET_FAMILY_INFO',response.data)
+                if(response.data) {commit('GET_FAMILY_INFO',response.data)}
              }).catch((error) => {
                  console.log(error);
              })

@@ -6,10 +6,10 @@
 <script>
 export default {
 name: 'FamilyCard',
-props: ['isActive', 'index','status'],
+props: ['isActive', 'index','status','type'],
 methods:{
     changeStatus(){
-         this.$emit("labelAction",this.index);
+         this.$emit("labelAction",this.index,this.type);
     }
 }
 }

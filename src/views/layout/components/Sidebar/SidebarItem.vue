@@ -113,7 +113,13 @@ export default {
         this.$store.dispatch('showFamilyInfo',{id:11,type:1});
       }
       if(to=="/download"){
-         this.$store.dispatch('downloadInfo',1)
+         this.$store.dispatch('downloadInfo',11)
+      }
+       if(to=="/claim"){
+         this.$store.dispatch('showMyClaim',1)
+      }
+        if(to=="/resource"){
+         this.$store.dispatch('showAllResource',11)
       }
     
     }

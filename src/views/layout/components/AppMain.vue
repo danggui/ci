@@ -1,12 +1,18 @@
 <template>
    <section class="app-main">
      <div v-if="material&&words" class="apply_notice">
-        <el-badge is-dot class="item red-item"><svg-icon class-name="main-icon" icon-class="biandongtongzhi" /></el-badge>你的理赔缺少申请材料，请点击【这里】补充材料。
+        <el-badge is-dot class="item red-item"><svg-icon class-name="main-icon" icon-class="biandongtongzhi" /></el-badge>你的理赔缺少申请材料，请点击
+       <router-link to="/claim">
+              【这里】 
+      </router-link> 
+        补充材料。
      </div>
      <div v-else class="apply_notice_no">
      </div>
      <div class="family-label" v-if="family">
-    
+      <div class="family-status">
+        <family-card v-for="(item,index) in label" :status="item.status" :key="index" :index="index" :isActive="item.isActive" @labelAction="changeStatus" :type="index+1"/>
+      </div>
      </div>
      <el-card class="box-card app_content">
       <transition name="fade-transform" mode="out-in">
@@ -25,8 +31,22 @@
 <script>
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
+import FamilyCard from "@/components/FamilyCard"
 export default {
   name: 'AppMain',
+  components:{FamilyCard},
+  data(){
+    return {
+      label:[{
+          status:"生效中",isActive:true
+        },{
+          status:"待生效",isActive:false
+        },
+        {
+          status:"已生效",isActive:false
+        }]
+    } 
+  },
   computed: {
      cachedViews() {
       return this.$store.state.tagsView.cachedViews
@@ -53,7 +73,13 @@ export default {
    
   },
   methods:{
-    
+     changeStatus(index,type){
+      this.label.forEach(item =>{
+        item.isActive=false
+      })
+        this.label[index].isActive=true
+      this.$store.dispatch('showFamilyInfo',{id:11,type:type});    
+    }
   }
  
 
