@@ -20,6 +20,9 @@ export default {
     if (isMobile) {
       store.dispatch('toggleDevice', 'mobile')
       store.dispatch('closeSideBar', { withoutAnimation: true })
+    }else{
+      store.dispatch('toggleDevice', 'desktop')
+      store.dispatch('openSideBar', { withoutAnimation: true })
     }
   },
   methods: {
@@ -34,6 +37,9 @@ export default {
 
         if (isMobile) {
           store.dispatch('closeSideBar', { withoutAnimation: true })
+        }
+        else{
+           store.dispatch('openSideBar', { withoutAnimation: true })
         }
       }
     }

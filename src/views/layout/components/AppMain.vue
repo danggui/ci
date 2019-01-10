@@ -2,9 +2,9 @@
    <section class="app-main">
      <div v-if="material&&words" class="apply_notice">
         <el-badge is-dot class="item red-item"><svg-icon class-name="main-icon" icon-class="biandongtongzhi" /></el-badge>你的理赔缺少申请材料，请点击
-       <router-link to="/claim">
-              【这里】 
-      </router-link> 
+        <label @click="handleEdit">
+            【这里】 
+        </label>
         补充材料。
      </div>
      <div v-else class="apply_notice_no">
@@ -79,6 +79,10 @@ export default {
       })
         this.label[index].isActive=true
       this.$store.dispatch('showFamilyInfo',{id:11,type:type});    
+    },
+    handleEdit(){
+        this.$router.push({path: '/claim'});
+          this.$store.dispatch('showMyClaim',1)
     }
   }
  

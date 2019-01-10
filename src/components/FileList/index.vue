@@ -1,50 +1,19 @@
 <template>
-    <div class="file-list-flex">
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
-    <img/>
+    <div class="file-list-flex" >
+    <img v-for="(item,index) in list" :key="index" :src="item" />
     </div>
-     
 </template>
 
 <script>
 
 export default {
     name:'FileList',
-    data() {
-        return {
-           
-           
-             
+    props:{
+        list:{
+            type: Array, 
+            default:[]
         }
-    },
-    computed:{  
-       
-    },
-    methods:{
-       
     }
-
 }
 
 

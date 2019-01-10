@@ -107,7 +107,9 @@ export default {
     generateTitle,
     dispatchEvent(to){
       if(to=="/apply"){
-        this.$store.dispatch('showApply',1)
+         this.$store.dispatch('showApply',11)
+         this.$store.dispatch('getImageList',{id:11,type:115,kind:0})
+         this.$store.dispatch('getImageList',{id:11,type:116,kind:0})
       }
        if(to=="/family"){
         this.$store.dispatch('showFamilyInfo',{id:11,type:1});

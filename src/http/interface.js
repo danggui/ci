@@ -1,4 +1,5 @@
 import axios from './api'
+import Qs from 'qs'
 
 /* 将所有接口统一起来便于维护
  * 如果项目很大可以将 url 独立成文件，接口分成不同的模块
@@ -19,13 +20,46 @@ export const downloadMaterial = (id) => {
     })
 }
 
+//apply
 export const showInfo = (id) => {
     return axios({
         url: `/personSecurity/familySecurityInfo/${id}`,
         method: 'get'
     })
 }
+export const uploadImage = (data) => {    
+    return axios({
+        url: `/upload/imageUpload`,
+        method: 'post',
+        data:data
+    })
+}
 
+export const updateImage = (id,code,kind) => {   
+    return axios({
+        url: `/claim/claimImages/${id}/${code}/${kind}`,
+        method: 'get',
+    })
+}
+export const  deleteImage = (id) => {   
+    return axios({
+        url: `/accessory/accessoryFile/${id}`,
+        method: 'delete',
+    })
+}
+
+export const  saveApply = (data) => {  
+
+    return axios({
+        url: `/claim/claim`,
+        method: 'post',
+        data:data
+    })
+}
+
+
+
+//family
 export const showFamily =(personId,type) =>{
     return axios(
         {
@@ -36,6 +70,7 @@ export const showFamily =(personId,type) =>{
     )
 }
 
+//claim
 export const showClaim =(personId) =>{
     return axios(
         {
@@ -45,6 +80,17 @@ export const showClaim =(personId) =>{
         }
     )
 }
+
+export const deleteClaim =(claimId) =>{
+    return axios(
+        {
+            url:`/claim/claim/${claimId}`,
+            method:'delete' ,
+            
+        }
+    )
+}
+//resource
 export const showResource =(personId) =>{
     return axios(
         {
@@ -58,9 +104,14 @@ export const showResource =(personId) =>{
 // 默认全部导出
 export default {
     isMaterial,
-    showInfo,
     downloadMaterial,
+    showInfo,
+    uploadImage,
+    updateImage,
+    deleteImage,
+    saveApply,
     showFamily,
     showClaim,
+    deleteClaim,
     showResource
 }

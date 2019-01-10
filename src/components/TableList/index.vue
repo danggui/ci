@@ -46,37 +46,26 @@
   </table>
    <table class="myTable3" :style="styleObject" v-else >
     <tr><th  class='theme-purple ' colspan="2">上传凭证</th></tr>
-    <tr>
-        <td width="150" rowspan="2">银行卡照片</td>
+    <template  v-for="(item,index) in tableData" >
+    <tr :key="index" >
+        <td width="150" v-if="index==0" :rowspan="tableData.length">{{item.title}}</td>
         <td class="file-content">
-            <div class="card-title">中国银行 88888888 ABC</div>
+            <div class="card-title">{{item.name}}</div>
             <div class="flex-layout-word"><div>正面</div><div>反面</div></div>
             <div class="flex-layout">
                <div class="card-layout"> 
-                  
-                   <img/>
+                   <img :src="item.pic1"/>
                    <img/>
                 </div>
               <div class="card-layout"> 
-                   <img/>
+                    <img :src="item.pic2"/>
                     <img/>
                 </div>
             </div>
         </td>
     </tr>
-    <tr>
-        <td ></td>
-    </tr>
-    <tr>
-        <td width="150" rowspan="3">身份证照片</td>
-        <td ></td>
-    </tr>
-    <tr>
-        <td ></td>
-    </tr>
-    <tr>
-        <td ></td>
-    </tr>
+    </template>
+   
   </table>
 </template>
 <script>

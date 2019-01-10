@@ -101,10 +101,24 @@ export const constantRouterMap = [
       ]
     },
   ]
+  export const mobilePage=[
+    {
+      path: '/mobile',
+      component: Layout,
+      children: [
+        {
+          path: '/mobile',
+          component: () => import('@/views/mobile/index'),
+          name: 'Phote',
+          meta: { title: 'photo', icon: 'photo', noCache: true,words:false }
+        }
+      ]
+    }
+  ]
 
 export default new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
+  routes: constantRouterMap.concat(mobilePage)
 })
 

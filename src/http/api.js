@@ -38,6 +38,7 @@ export default function $axios(options) {
             || config.url.endsWith('patchs')
           ) {
           } else {
+           
             config.data = qs.stringify(config.data)
           }
         }

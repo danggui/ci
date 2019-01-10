@@ -10,7 +10,7 @@
             <span class="file-name">{{ $t(item.name) }}</span>
             </div>
             <el-row>
-                <el-button size="medium" type="primary" plain > <a :href="link[index].filePath" target="_blank">{{ $t(download) }}</a></el-button>
+                <el-button size="medium" type="primary" plain > <a :href="item.src" target="_blank" download="123">{{ $t(download) }}</a></el-button>
              </el-row>
         </div>
         <div v-show="item.isShow" class="file-content">
@@ -26,24 +26,17 @@
 import Arrow from '@/components/Arrow'
 export default {
   name: 'Download',
-   props: {
-    link:{
-      type: Array,
-      default: []
-    }},
   components: {Arrow},
   data() {
     return {
         download:'download.download',
         isActive:true,
-        list:[
-                {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false},
-                {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true},
-                {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true}    
-              ] 
     }
   },
   computed:{
+     list(){
+         return this.$store.state.download.list
+     }
      
   },
  

@@ -43,8 +43,9 @@
       >
     </el-table-column>
     <el-table-column  align="center" 
+      prop="status"
       label="状态"
-       :filters="[{ text: '理赔中', value: '1' }, { text: '已结案', value: '2' },{ text: '待提交', value: '3' }]"
+      :filters="[{ text: '理赔中', value: '理赔中' }, { text: '已结案', value: '已结案' },{ text: '待提交', value: '待提交' }]"
       :filter-method="filterTag"
       filter-placement="bottom-end"
       :filter-multiple="isTure"
@@ -60,7 +61,7 @@
     </el-table-column>
      <el-table-column   align="center"  label="操作">
       <template  slot-scope="scope">
-        <template  v-if="!isDraft[scope.$index]">
+        <template  v-if="isDraft[scope.$index]">
         <label @click="handleEdit(scope.$index, scope.row)">
             <svg-icon class-name="edit-icon theme-purple"  icon-class="edit"   />
         </label>
@@ -75,20 +76,19 @@
     
     </el-table-column>
     <el-table-column   align="center"   width="20px" type="expand" >
-      <template  slot-scope="scope">
+      <template  slot-scope="props">
         <el-form label-position="left" inline class="table-detail">
           <el-form-item label="附件" class="attatchment">
           </el-form-item>
-          <file-list/>
+          <file-list :list="props.row.detail.image"/>
           <el-form-item label="发票赔付明细" >
           </el-form-item>
           <ul class="instruction">
-             <li>
-                 <div>发票： 34444444444</div>
-                 <div>发票金额：|第三方支付： |理赔金额： |赔付金额：</div>
-                 <div>拒赔原因：         333333333333333333333333333</div>
+             <li v-for="(item,index) in props.row.detail.des" :key="index">
+                 <div>发票： {{item.name}}</div>
+                 <div>发票金额：{{item.value}}|第三方支付：{{item.third_pay}} |理赔金额：{{item.apply_amount}} |赔付金额：{{item.compensation}}</div>
+                 <div>拒赔原因：  {{item.reson}}</div>
              </li>
-             <li></li>
          </ul>
         </el-form>
       </template>
@@ -128,6 +128,7 @@ export default {
        
    }    
   },
+
   computed:{
       tableData(){
           return this.$store.state.claim.tableData
@@ -154,11 +155,12 @@ export default {
    methods: {
       handleEdit(index, row) {
        this.$router.push({path: '/apply'});
-       this.$store.dispatch('showApply',1);
+       this.$store.dispatch('showApply',11);
 
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        //console.log(index, row.id);
+        this.$store.dispatch('deleteMyClaim',{index:index,id:row.id});
       },
       showDetail(index, row) {
          if (this.expands.indexOf(row.id) < 0) {
@@ -167,22 +169,15 @@ export default {
                 } else {
                     this.expands=[]
                 }
-        console.log(row.id);
-          console.log(this.expands.indexOf(row.id));
+        //console.log(row.id);
+        //console.log(this.expands.indexOf(row.id));
       },
       getRowClass(item,index){
-        //console.log(item.row)
-        if (item.row.code==120)//即改行没有子元素时，添加row-expand-cover类
         {return 'row-expand-cover'}
-            
-    /* if (row.operate == 2)
-      res.push('hide-row')
-    return res.join(' ') */
-       
       },
   
        filterTag(value, row) {
-        return row.tag === value;
+        return row.status === value;
       },
       /*
       renderHeader (h,{column}) { // h即为cerateElement的简写，具体可看vue官方文档
@@ -243,7 +238,7 @@ export default {
 }
 */
 .row-expand-cover .el-table__expand-column .el-icon{
- //visibility:hidden;
+ visibility:hidden;
  //display:none;
 }
 </style>

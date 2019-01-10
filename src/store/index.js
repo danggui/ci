@@ -13,9 +13,14 @@ import claim from './modules/claim'
 import resource from './modules/resource'
 import getters from './getters'
 
+import createPersistedState from "vuex-persistedstate"
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  plugins: [createPersistedState({
+    storage: window.sessionStorage
+  })],
   modules: {
     app,
     errorLog,

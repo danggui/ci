@@ -1,5 +1,4 @@
-
-import {showClaim} from '@/http/interface'
+import {showClaim,deleteClaim} from '@/http/interface'
 import { parseTime } from '@/utils'
 
 const claim = {
@@ -17,6 +16,30 @@ const claim = {
             state.isDraft=[]
             data.forEach((item,index)=>{
                 let logItem=[] ;
+                let detail={};
+                let image=[];
+                let des=[];
+                //存在详情
+                if(item.accessorys){
+                    item.accessorys.forEach((item2,index2)=>{
+                        image.push(
+                           item2.thumbPath
+                        )
+                    })
+                }
+               
+                if(item.claimInvoices){
+                    item.claimInvoices.forEach((item2,index2)=>{
+                        des.push({name:item2.invoiceCode,
+                            value:item2.invoiceValue,
+                            third_pay:item2.thirdPay,
+                            apply_amount:item2.lisuanAmount,
+                            compensation:item2.compensationAmount,
+                            reson:item2.compensationNote})
+                    })
+                }
+                detail=Object.assign(detail,{image:image},{des:des})
+                
                 state.tableData.push({
                     data: parseTime(item.createdDate),
                     data2: parseTime(item.doctorDate),
@@ -24,11 +47,14 @@ const claim = {
                     check_num: item.invoiceNumber,
                     check_amount:item.invoiceAmount,
                     pay_amount:item.compensationAmount,
-                    status:"待提交",
+                    status:item.typeName,
                     code:item.claimStatus,
-                    id:item.id
+                    type:item.type,
+                    id:item.id,
+                    detail:detail
+                    
                 })
-                state.isDraft.push(item.claimStatus===(117||122)?true:false)
+                state.isDraft.push(item.type==3?true:false)
                 item.claimStatusLogs.forEach((item2,index)=>{
                     logItem.push({
                         time:parseTime(item2.createdDate),
@@ -38,6 +64,9 @@ const claim = {
                 state.claimLog.push(logItem)
 
             })
+        },
+        DELETE_CLAIM:(state, data) => {
+            state.tableData.splice(data,1)
         }
            
     },
@@ -50,7 +79,15 @@ const claim = {
                 console.log(error);
             })
 
-          }
+          },
+        deleteMyClaim({commit},data) {
+            deleteClaim(data.id).then((response) => {
+               commit('DELETE_CLAIM', data.index)
+            }).catch((error) => {
+                console.log(error);
+            })
+
+          },
   
     }
   }

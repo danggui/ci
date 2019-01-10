@@ -8,7 +8,8 @@
       type="date"
       size="small"
       placeholder="选择日期"
-      :picker-options="pickerOptions1">
+      :picker-options="pickerOptions1"
+      @change="getTime">
     </el-date-picker>
      </div> 
      <div class="card-flex">
@@ -29,19 +30,19 @@
      <div v-show="isShow">
      <div class="card-flex">
      <span>证件号码</span>
-     <span>{{identify}}</span>
+     <span>{{identify[num]}}</span>
      </div>
      <div class="card-flex">
      <span >手机号码</span>
-      <span>{{mobile}}</span>
+      <span>{{mobile[num]}}</span>
      </div>
      <div class="card-flex">
      <span >电子邮箱</span>
-      <span>{{email}}</span>
+      <span>{{email[num]}}</span>
     </div>
     <div class="card-flex">
      <span>银行卡</span>
-      <span>{{ bank_name}} | {{card_num}} | {{card_holder}}</span>
+      <span>{{ bank_name[num]}} | {{card_num[num]}} | {{card_holder[num]}}</span>
     
 
     </div>
@@ -54,10 +55,17 @@
 import Arrow from '@/components/Arrow'
 export default {
     components:{Arrow},
+    props:{
+      num: {
+      type: Number,
+      default: 0
+    }
+    },
     data() {
         return {
             isShow:true,
             isDegree: true,
+            value:this.$store.state.apply.value,
             value1: '',
             pickerOptions1: {
                 disabledDate(time) {
@@ -75,39 +83,41 @@ export default {
         }
     },
     computed:{  
-        value(){
-            return this.$store.state.apply.value
-            },
+      
         options(){
             return this.$store.state.apply.options
         },
         identify(){
-            return  this.$store.state.apply.identify[0]
+            return  this.$store.state.apply.identify
         },
         mobile(){
-            return  this.$store.state.apply.mobile[0]
+            return  this.$store.state.apply.mobile
         },
         email(){
-            return  this.$store.state.apply.email[0]
+            return  this.$store.state.apply.email
         },
         bank_name(){
-            return  this.$store.state.apply.bank_name[0]
+            return  this.$store.state.apply.bank_name
         },
         card_num(){
-            return  this.$store.state.apply.card_num[0]
+            return  this.$store.state.apply.card_num
         },
         card_holder(){
-            return  this.$store.state.apply.card_holder[0]
+            return  this.$store.state.apply.card_holder
         }
     },
     methods:{
-        getPerson(){
-
+        getPerson(item){
+          this.$emit('getPerson', item)  
         },
         toggleInfo(){
          this.isDegree = !this.isDegree;
          this.isShow = !this.isShow;  
+        },
+        getTime(time){
+            this.$emit('getTime', time)  
         }
+      
 
     }
 

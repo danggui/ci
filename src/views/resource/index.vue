@@ -3,7 +3,8 @@
       <div class="form-table">
         <table-list :tableData="myData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="3"/>
          <table-list :tableData="familyData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="4"/>
-         <table-list :tableData="photoData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="5"/>
+         <table-list :tableData="bankData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="5"/>
+         <table-list :tableData="idData"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="6"/>
          
       </div>
   </div>
@@ -24,19 +25,16 @@ export default {
        return this.$store.state.resource.personData
    },
    familyData(){
-        return [
-           {relation:'父亲',name:"123",sex:"male",date:"23423-92-1",id:"23423423423423"},
-           {relation:'mum',name:"123",sex:"male",date:"23423-92-1",id:"23423423423423"}
-       ]
+        return this.$store.state.resource.familyData
    },
-   photoData(){
-       return []
-   }
-   
+   bankData(){
+       return this.$store.state.resource.bankData
+   },
+   idData(){
+       return this.$store.state.resource.idData
+  
+  }
   },
-
- 
-
   methods:{
    
    
@@ -45,11 +43,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scope>
-.resource-container {
 
-
-
-}
 
 
 </style>
