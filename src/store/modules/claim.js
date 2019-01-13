@@ -1,6 +1,5 @@
 import {showClaim,deleteClaim} from '@/http/interface'
 import { parseTime } from '@/utils'
-
 const claim = {
     state: {
         tableData:[],
@@ -8,7 +7,6 @@ const claim = {
         isDraft:[]
 
     },
-
     mutations: {
         GET_CLAIM: (state, data) => {
             state.tableData=[]
@@ -51,8 +49,7 @@ const claim = {
                     code:item.claimStatus,
                     type:item.type,
                     id:item.id,
-                    detail:detail
-                    
+                    detail:detail    
                 })
                 state.isDraft.push(item.type==3?true:false)
                 item.claimStatusLogs.forEach((item2,index)=>{
@@ -62,7 +59,6 @@ const claim = {
                     })
                 })
                 state.claimLog.push(logItem)
-
             })
         },
         DELETE_CLAIM:(state, data) => {

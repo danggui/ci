@@ -18,7 +18,7 @@ export default {
   },
   methods: {
      dispatchMy(){
-       this.$emit("clickItem",this.to);
+          this.$emit("clickItem",this.to);
      }
   }
 }

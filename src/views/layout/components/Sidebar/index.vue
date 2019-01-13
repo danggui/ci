@@ -21,6 +21,7 @@ import SidebarItem from './SidebarItem'
 import SidebarTitle from './SidebarTitle'
 import { constantRouterMap } from '@/router'
 export default {
+  name:'Sidebar',
   components: { SidebarItem,SidebarTitle },
   data:function(){
       return {

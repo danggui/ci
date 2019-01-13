@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from './config';
 import qs from 'qs';
+import {Message,Loading} from 'element-ui'
 import Cookies from "js-cookie";
 import router from '@/router'
 
@@ -19,17 +20,17 @@ export default function $axios(options) {
     // request 拦截器
     instance.interceptors.request.use(
       config => {
-        let token = Cookies.get('markToken')
+         Loading.service({text:"Loading..."});
         // 1. 请求开始的时候可以结合 vuex 开启全屏 loading 动画
-        // console.log(store.state.loading)
+         //console.log(store.state.loading)
         // console.log('准备发送请求...')
         // 2. 带上token
-        if (token) {
-          config.headers.accessToken = token
-        } else {
+       // if (token) {
+        //  config.headers.accessToken = token
+       // } else {
           // 重定向到登录页面
           //router.push('/notice')
-        }
+       // }
         // 3. 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method === 'post') {
           if (config.data.__proto__ === FormData.prototype
@@ -38,15 +39,14 @@ export default function $axios(options) {
             || config.url.endsWith('patchs')
           ) {
           } else {
-           
-            config.data = qs.stringify(config.data)
+            //config.data = qs.stringify(config.data)
           }
         }
         return config
       },
-
       error => {
         // 请求错误时
+        Message.error({message: '请求超时!'});
         console.log('request:', error)
         // 1. 判断请求超时
         if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
@@ -70,6 +70,7 @@ export default function $axios(options) {
     // response 拦截器
     instance.interceptors.response.use(
       response => {
+        Loading.service().close();
         let data;
         // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
         if (response.data == undefined) {
@@ -98,6 +99,7 @@ export default function $axios(options) {
         return data
       },
       err => {
+        Loading.service().close();
         if (err && err.response) {
           switch (err.response.status) {
             case 400:
@@ -122,6 +124,7 @@ export default function $axios(options) {
 
             case 500:
               err.message = '服务器内部错误'
+              Message.error({message: '服务器被吃了⊙﹏⊙∥'});
               break
 
             case 501:

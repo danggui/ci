@@ -1,5 +1,5 @@
 
-import {showInfo,uploadImage,updateImage,deleteImage,saveApply} from '@/http/interface'
+import {showInfo,showEditInfo,uploadImage,updateImage,deleteImage,saveApply,saveEdit} from '@/http/interface'
 function myMap() {
     return new Map()
             .set(101,0)
@@ -29,11 +29,17 @@ const apply = {
         card_holder:[],
         pic_list1:[],
         pic_list2:[],
-        info:[]
+        info:[],
+        edit_id:"",
+        isUpdate:false,
+        time:'',
+       
     },
 
     mutations: {
         SET_INFO: (state, data) => {
+            Storage.set("isEditting",1)
+            state.isUpdate=false,
             state.options=[],
             state.identify=[],
             state.mobile=[],
@@ -65,12 +71,93 @@ const apply = {
            //提交前获得数据
            
           },
+          SET_EDIT_INFO: (state, data) => {
+           Storage.set("isEditting",1)
+           const code=data.code
+           const res=data.res
+           const img=data.img
+            
+            state.edit_id=data.id
+            state.isUpdate=true,
+            state.options=[],
+            state.identify=[],
+            state.mobile=[],
+            state.email=[],
+            state.bank_name=[],
+            state.card_num=[],
+            state.card_holder=[],
+            state.info=[],
+            state.pic_list1=[],
+            state.pic_list2=[],
+            state.identify.push(res.idNumber)
+            state.mobile.push(res.mobile)
+            state.email.push(res.email)
+            state.bank_name.push(res.bankName)
+            state.card_num.push(res.bankAccount)
+            state.card_holder.push(res.accountName)
+            state.info.push({
+                insuredId:res.personId,
+                //doctorDate:item.personId,
+                personSecurityId:res.id,
+                tenantId:res.tenantId
+                })
+            state.value=res.name
+            state.time=data.time
+
+
+            let pic1= []
+            let pic2= []
+            let pic3= []
+            let pic4= []
+            let pic5= []
+            let pic6= []
+            let pic7= []
+            let pic8= []
+            let pic9= []
+            let pic10= []
+            let pic11= []
+            let pic12= []
+                if(code==115){
+            state.pic_list1=[]
+            pic1=img.outpatients
+            pic2=img.medicals
+            pic3= img.costs
+            pic4=img.inspects
+            pic5= img.others
+            pic6= img.summarys       
+            state.pic_list1.push(pic1)
+            state.pic_list1.push(pic2)
+            state.pic_list1.push(pic3)
+            state.pic_list1.push(pic4)
+            state.pic_list1.push(pic5)
+            state.pic_list1.push(pic6)
+           }
+           else{
+            state.pic_list2=[]
+            pic7=img.outpatients
+            pic8=img.medicals
+            pic9= img.costs
+            pic10=img.inspects
+            pic11= img.others
+            pic12= img.summarys  
+
+            state.pic_list2.push(pic7)
+            state.pic_list2.push(pic8)
+            state.pic_list2.push(pic9)
+            state.pic_list2.push(pic10)
+            state.pic_list2.push(pic11)
+            state.pic_list2.push(pic12)
+           }
+           
+            
+          },
           UPLOAD_IMAGE:(state,data)=>{
               let type=data.res.accessoryType
               let code=data.code
               let temp=myMap().get(type)
               let newImage= data.res
               if(code==115){
+                
              state.pic_list1[temp].push(newImage)
               }else{
                 state.pic_list2[temp].push(newImage)
@@ -136,7 +223,19 @@ const apply = {
         },
 
         SAVE_APPLY:(state,data)=>{
-
+            Storage.set("isEditting",0)
+            if(data.status==118){
+                if(Storage.get("code")=="115"){
+                state.pic_list1=[]
+                }else{
+                    state.pic_list2=[]
+                }
+            }
+            
+        },
+        SAVE_EDIT:(state,data)=>{
+            Storage.set("isEditting",0)
+          
         }
     },
   
@@ -148,6 +247,15 @@ const apply = {
                 console.log(error);
             })
           },
+          showEditApply({ commit }, id) {
+            showEditInfo(id).then( (response) => {
+               commit('SET_EDIT_INFO', {res:response.data.personSecurity,img:response.data.claimImages,time:response.data.doctorDate,code:response.data.chargeType,id:response.data.id})
+            }).catch((error) => {
+                console.log(error);
+            })
+          },
+
+
           uploadSingleImage({commit},data){
             uploadImage(data.formData).then( (response) => {
                 commit('UPLOAD_IMAGE',{res:response.data,code:data.code})
@@ -173,8 +281,16 @@ const apply = {
           },
          
         saveMyApply({commit},data){
-            saveApply(data).then((response) => {
-                commit('SAVE_APPLY', response)
+            saveApply(data.data).then((response) => {
+                commit('SAVE_APPLY', {res:response,status:data.status})
+             }).catch((error) => {
+                 console.log(error);
+             })
+          },
+
+          saveMyEdit({commit},data){
+            saveEdit(data.data,data.id).then((response) => {
+                commit('SAVE_EDIT', {res:response.data,code:data.code})
              }).catch((error) => {
                  console.log(error);
              })

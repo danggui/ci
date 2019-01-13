@@ -53,13 +53,40 @@
             <div class="card-title">{{item.name}}</div>
             <div class="flex-layout-word"><div>正面</div><div>反面</div></div>
             <div class="flex-layout">
-               <div class="card-layout"> 
-                   <img :src="item.pic1"/>
-                   <img/>
+               <div class="card-layout" > 
+            <el-upload
+                    :data="item.data1"
+                    class="avatar-uploader"
+                    list-type="picture-card"
+                    action=""
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload"
+                    :http-request="upload">
+             <img v-if="item.pic1" :src="item.pic1" class="avatar">
+             <template v-else>
+                 <i  class="el-icon-plus avatar-uploader-icon"></i>
+                 <vue-qr class="QRImage"  :text="config.value" :size="110" :margin="5"  @click.native.stop></vue-qr> 
+             </template>
+            </el-upload>
                 </div>
               <div class="card-layout"> 
-                    <img :src="item.pic2"/>
-                    <img/>
+                    <el-upload
+                    :data="item.data2"
+                    class="avatar-uploader"
+                    list-type="picture-card"
+                    action=""
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :on-remove="handleRemove"
+                    :before-upload="beforeAvatarUpload"
+                    :http-request="upload">
+             <img v-if="item.pic2" :src="item.pic2" class="avatar">
+             <template v-else>
+                 <i  class="el-icon-plus avatar-uploader-icon"></i>
+                 <vue-qr class="QRImage"  :text="config.value" :size="110" :margin="5"  @click.native.stop></vue-qr> 
+             </template>
+            </el-upload>
                 </div>
             </div>
         </td>
@@ -69,18 +96,25 @@
   </table>
 </template>
 <script>
+import VueQr from 'vue-qr'
 export default {
   name:"TableList",
+  components: { VueQr },
   data() {
     return {
       styleObject: {},
+       imageUrl: '',
+       config: {
+          value: 'http://192.168.102.234:8080/#/mobile?1233294723',//显示的值、跳转的地址
+          logo:'',
+        }
     };
   },
   props: ['tableData', 'tableStyle', 'showByRow','s_showByRow',"start","end","father"],
   computed: {
     rowCount: function() {
       return Math.ceil(this.tableData.length/2);
-    }
+    },
   },
   created() {
     this.styleObject = this.tableStyle;
@@ -88,9 +122,31 @@ export default {
       this.s_showByRow = this.showByRow;
     }
   },
+  methods:{
+      beforeAvatarUpload(res, file){
+    
+      },
+      handleAvatarSuccess(res, file) {
+          console.log(file)
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+       handleRemove(file, fileList) {
+        console.log(file);
+       //this.$store.dispatch("deleteSingleImage",{id:file.id,code:this.code})
+      },
+     upload(params) {
+      const formData = new FormData()
+      formData.append('file',params.file)
+       console.log(params);
+      formData.append('insuredId',params.data.personId)
+      formData.append('accessoryType',params.data.accessoryType)
+      this.$store.dispatch("uploadResourseImage",{data:formData,insuredId:params.data.personId,accessoryType:params.data.accessoryType})
+     
+      }
+  }
 }
 </script>
-<style rel="stylesheet/scss" lang="scss" scope>
+<style rel="stylesheet/scss" lang="scss" >
 table.myTable{
     border-collapse:collapse;
     border:1px solid #DEDEDE;
@@ -210,14 +266,34 @@ table.myTable3{
              display: flex;
              width: 50%;
              img{
-             width: 110px;
-             height: 110px;
-             margin-right: 40px;
+             width: 98%;
+             max-width: 109px;
+             max-height: 109px;
+             height:98%;
          }
          }
         
-     }
-   
-   
+     } 
 }
+ .file-content .el-upload--picture-card{
+         width: 110px;
+         height:110px;
+         position: relative;
+         .QRImage{
+            border: 1px solid #c0ccda;
+            border-radius: 6px;
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            left:143px;
+            top: 0
+            }
+            i{
+            position: absolute;
+            top: 50%;
+            margin-top: -14px;
+            left: 50px;
+            margin-left: -10px;
+            }
+     }
 </style>

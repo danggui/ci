@@ -16,7 +16,6 @@ const family = {
            state.tableData=[];
            state.detailData=[];
            state.options=data;
-        
            data.forEach((item,index)=>{
             let tableDataItem=[] ;
             let detailDataItem=[] ;
@@ -47,7 +46,7 @@ const family = {
     actions: {
         showFamilyInfo({ commit },data){
             showFamily(data.id,data.type).then( (response) => {
-                if(response.data) {commit('GET_FAMILY_INFO',response.data)}
+               commit('GET_FAMILY_INFO',response.data)
              }).catch((error) => {
                  console.log(error);
              })

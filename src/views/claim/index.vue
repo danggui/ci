@@ -155,7 +155,7 @@ export default {
    methods: {
       handleEdit(index, row) {
        this.$router.push({path: '/apply'});
-       this.$store.dispatch('showApply',11);
+       this.$store.dispatch('showEditApply',row.id);
 
       },
       handleDelete(index, row) {

@@ -14,7 +14,7 @@
      <label-line  :title="title" :message="message"></label-line>
  </div>
  <div class="apply-card">
-     <card :time="defaultTime" :num="num" @getTime="doctorTime"  @getPerson="personNum"/>
+     <card :update="isUpdate" :time="defaultTime" :num="num" @getTime="doctorTime"  @getPerson="personNum"/>
  </div>
  <div class="apply-label">
      <label-line  :title="title2" :message="photoMessage"></label-line>
@@ -33,9 +33,13 @@
      <div class="check-label">
       <el-checkbox v-model="checked">我已阅读并同意理赔须知内容</el-checkbox>
       </div>
-      <div>
+      <div v-if="!isUpdate">
            <el-button type="primary" :disabled="!checked" @click="submitForm">确认提交</el-button>
            <el-button  plain  :disabled="!checked"  @click="submitDraft">保存草稿</el-button>
+      </div>
+      <div v-else>
+           <el-button type="primary" :disabled="!checked" @click="editForm">确认1提交</el-button>
+           <el-button  plain  :disabled="!checked"  @click="editDraft">保存1草稿</el-button>
       </div>
  </div>
   </div>
@@ -53,8 +57,8 @@ export default {
   data() {
     return {
       options:[
-          {value:'选项1',label:'门急诊'},
-          {value:'选项2',label:'住院'} 
+          {value:'115',label:'门急诊'},
+          {value:'116',label:'住院'} 
           ],
            department: Storage.get("department")||'门急诊',
            isOutpatient:Storage.get("isOutpatient")||1,
@@ -94,6 +98,9 @@ export default {
       fileList2(){
           return this.$store.state.apply.pic_list2
       },
+      isUpdate(){
+          return this.$store.state.apply.isUpdate
+      }
      
   },
   mounted(){
@@ -112,13 +119,13 @@ export default {
          this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
      },
      chooseDepart(val){
-         if(val=="选项1"){
+         if(val=="115"){
           this.isOutpatient=1
           Storage.set("isOutpatient",1)
           Storage.set("department",'门急诊') 
           Storage.set("code",'115') 
          }
-          else if(val=="选项2"){
+          else if(val=="116"){
               this.isOutpatient=2
               Storage.set("isOutpatient",2)
               Storage.set("department",'住院')
@@ -132,7 +139,7 @@ export default {
           type: 'warning'
         }); }
         const data={
-            'personId':1,
+            'personId':11,
             "insuredId":this.$store.state.apply.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
@@ -142,21 +149,38 @@ export default {
             "tenantId":this.$store.state.apply.info[this.num].tenantId
         }
         console.log(data)
-        this.$store.dispatch("saveMyApply",data)
+        this.$store.dispatch("saveMyApply",{data:data,status:118})
         },
         submitDraft(){
         const data={
-            'personId':1,
+            'personId':11,
             "insuredId":this.$store.state.apply.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
-            "claimStatus":119,
+            "claimStatus":117,
             "personSecurityId":this.$store.state.apply.info[this.num].personSecurityId,
             "tenantId":this.$store.state.apply.info[this.num].tenantId
         }
         console.log(data)
-        this.$store.dispatch("saveMyApply",data)
+        this.$store.dispatch("saveMyApply",{data:data,status:117})
+        },
+        editForm(){
+            let id= this.$store.state.apply.edit_id
+            const data={
+            'personId':11,
+            "insuredId":this.$store.state.apply.info[this.num].insuredId,
+            "chargeType":Storage.get("code")||115,
+            "submitWay":"PC",
+            "doctorDate":new Date(this.defaultTime),
+            "claimStatus":118,
+            "personSecurityId":this.$store.state.apply.info[this.num].personSecurityId,
+            "tenantId":this.$store.state.apply.info[this.num].tenantId
+        }
+            this.$store.dispatch("saveMyEdit",{data:data,id:id})
+        },
+        editDraft(){
+
         }
    
   }

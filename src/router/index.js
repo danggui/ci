@@ -4,6 +4,8 @@ import Router from 'vue-router'
 
 /* Layout */
 import Layout from '@/views/layout/Layout'
+import { MessageBox } from 'element-ui';
+import Storage from "@/utils/storage"
 
 Vue.use(Router)
 
@@ -13,6 +15,7 @@ export const constantRouterMap = [
     path: '/main',
     component: Layout,
     redirect: 'main',
+    label:"title_service"
   },
     {
       path: '/',
@@ -63,6 +66,13 @@ export const constantRouterMap = [
           meta: { title: 'apply', icon: 'apply', noCache: true, words:false }
         }
       ]
+    },
+    {
+      title: '我的账户',
+      path: '/account',
+      component: Layout,
+      redirect: 'account',
+      label:"title_account"
     },
     {
       path: '/family',
@@ -116,9 +126,22 @@ export const constantRouterMap = [
     }
   ]
 
-export default new Router({
+const router = new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap.concat(mobilePage)
 })
-
+router.beforeEach((to, from, next) => {
+   if(from.path == "/apply") {
+  MessageBox.confirm('编辑内容未保存，是否离开？','提示',{
+  confirmButtonText: '确定',
+  cancelButtonText: '取消',
+   }).then(
+     ()=>{ next() }
+  ).catch( ()=>next(false) ) 
+  
+}else { 
+next() //必须加
+}
+})
+export default router 

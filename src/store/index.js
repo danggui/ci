@@ -18,6 +18,15 @@ import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  state: {
+    isLoading: false
+  },
+  mutations: {
+    // 控制loading显示隐藏
+    updateLoadingStatus(state, payload) {
+      state.isLoading = payload.isLoading
+    }
+  },
   plugins: [createPersistedState({
     storage: window.sessionStorage
   })],

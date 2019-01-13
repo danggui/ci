@@ -14,7 +14,7 @@
      </div> 
      <div class="card-flex">
      <span class="demonstration">就诊人</span>
-     <el-select v-model="value"  size="small"  width="306px" @change="getPerson">
+     <el-select v-if="!update" v-model="value"  size="small"  width="306px" @change="getPerson">
       <el-option
       v-for="item in options"
       :key="item.value"
@@ -23,6 +23,7 @@
       >
     </el-option>
    </el-select>
+    <span v-else>{{value}}</span>
    <span class="row-arrow">
               <arrow  @arrowAction="toggleInfo"  :rotate="isDegree"/>
       </span>
@@ -59,6 +60,10 @@ export default {
       num: {
       type: Number,
       default: 0
+    },
+    update: {
+      type: Boolean,
+      default: false
     }
     },
     data() {
@@ -66,7 +71,7 @@ export default {
             isShow:true,
             isDegree: true,
             value:this.$store.state.apply.value,
-            value1: '',
+            value1: this.$store.state.apply.time,
             pickerOptions1: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
@@ -105,6 +110,8 @@ export default {
         card_holder(){
             return  this.$store.state.apply.card_holder
         }
+       
+       
     },
     methods:{
         getPerson(item){
@@ -115,6 +122,7 @@ export default {
          this.isShow = !this.isShow;  
         },
         getTime(time){
+
             this.$emit('getTime', time)  
         }
       

@@ -1,11 +1,14 @@
 <template>
-  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
-    <template v-if="item.title">
-       
-    </template>
+  <div v-if="!item.hidden" class="menu-wrapper">
+      <el-menu-item-group v-if="item.title" index="resolvePath(item.path)" class="menu-title"> 
+      <template slot="title">
+        <svg-icon  :icon-class="item.label" /><span>{{item.title}}</span>
+      </template>
+      </el-menu-item-group>
+    
 
     <template v-else-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-      <app-link :to="resolvePath(onlyOneChild.path)" @clickItem="dispatchEvent" >
+      <app-link :to="resolvePath(onlyOneChild.path)"  @clickItem="dispatchEvent" >
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon"  :title="generateTitle(onlyOneChild.meta.title)"  />
         </el-menu-item>
@@ -106,12 +109,25 @@ export default {
     },
     generateTitle,
     dispatchEvent(to){
-      if(to=="/apply"){
-         this.$store.dispatch('showApply',11)
-         this.$store.dispatch('getImageList',{id:11,type:115,kind:0})
-         this.$store.dispatch('getImageList',{id:11,type:116,kind:0})
-      }
-       if(to=="/family"){
+      if(to=="/apply"){ 
+      if(Storage.get("isEditting")==1){
+      this.$confirm('编辑内容未保存，是否离开？','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+         }).then(()=>{   
+          this.$store.dispatch('showApply',11)
+          this.$store.dispatch('getImageList',{id:11,code:115,kind:0})
+          this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
+           }  ).catch( ()=> {  })
+        }
+        else{
+          this.$store.dispatch('showApply',11)
+          this.$store.dispatch('getImageList',{id:11,code:115,kind:0})
+          this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
+        } 
+      }else{
+        Storage.set("isEditting",0)
+      if(to=="/family"){
         this.$store.dispatch('showFamilyInfo',{id:11,type:1});
       }
       if(to=="/download"){
@@ -124,8 +140,33 @@ export default {
          this.$store.dispatch('showAllResource',11)
       }
     
+      }
+ 
     }
     
   }
 }
 </script>
+
+<style rel="stylesheet/scss" lang="scss" scope>
+.el-menu-item{
+    color:#666666
+  }
+.menu-wrapper{
+  .menu-title .el-menu-item-group__title{
+  height: 70px;
+  line-height: 70px;
+  color: #333333;
+  padding: 0;
+  font-size:18px;
+  .svg-icon{
+    margin-right: 10px;
+  }
+    i{
+      color: #666666;
+      margin-right: 10px;
+    }
+}
+}
+
+</style>

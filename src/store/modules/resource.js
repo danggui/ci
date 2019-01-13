@@ -1,5 +1,5 @@
 
-import {showResource} from '@/http/interface'
+import {showResource,uploadImage} from '@/http/interface'
 import { parseTime } from '@/utils'
 
 const resource = {
@@ -8,8 +8,6 @@ const resource = {
         familyData:[],
         bankData:[],
         idData:[]
-       
-
     },
 
     mutations: {
@@ -37,21 +35,73 @@ const resource = {
             data.bankAndIdInfo.forEach((item,index)=>{
                 state.bankData.push({
                     title:"银行卡照片",
-                    name:item.bankName+'|'+item.bankAccount+'|'+item.accountName,
-                    pic1:item.images[2].filePath?item.images[2].filePath:item.images[2].qrCodeUrl,
-                    pic2:item.images[3].filePath?item.images[3].filePath:item.images[3].qrCodeUrl,
+                    name:item.bankName+'| '+item.bankAccount+'| '+item.accountName,
+                    pic1:item.idAndBankImages.frontBankImage?item.idAndBankImages.frontBankImage.filePath:"",
+                    //accessoryType1:item.images[2]?item.images[2].accessoryType:"",
+                    pic2:item.idAndBankImages.reverseBankImage?item.idAndBankImages.reverseBankImage.filePath:"",
+                    //accessoryType2:item.images[3]?item.images[3].accessoryType:"",
+                    data1:{
+                        personId:item.personId,
+                        accessoryType:3
+                    },
+                    data2:{
+                        personId:item.personId,
+                        accessoryType:4
+                    }
                     
                 })
                 state.idData.push({
                     title:"身份证照片",
-                    name:item.idName+'|'+item.idNumber+'|'+item.accountName,
-                    pic1:item.images[0].filePath?item.images[0].filePath:item.images[0].qrCodeUrl,
-                    pic2:item.images[1].filePath?item.images[1].filePath:item.images[1].qrCodeUrl,
+                    name:item.idName+'| '+item.idNumber+'| '+item.accountName,
+                    pic1:item.idAndBankImages.frontIdImage?item.idAndBankImages.frontIdImage.filePath:"",
+                    //accessoryType1:item.images[0]?item.images[0].accessoryType:"",
+                    pic2:item.idAndBankImages.reverseIdImage?item.idAndBankImages.reverseIdImage.filePath:"",
+                    //accessoryType2:item.images[1]?item.images[1].accessoryType:"",
+                    data1:{
+                        personId:item.personId,
+                        accessoryType:1
+                    },
+                    data2:{
+                        personId:item.personId,
+                        accessoryType:2
+                    }
                     
                 })
 
             })
            
+        },
+        UPLOAD_RESOURCE_IMAGE:(state,data)=>{
+              const id=data.id
+              const type=data.type
+              const res=data.res
+        
+
+                console.log(res)
+               if(type==1||type==2){
+                   state.idData.forEach((item,index)=>{
+                       if(type==1&&id==item.data1.personId){
+                        item.pic1=res
+                        return
+                       }
+                       else if(type==2&&id==item.data2.personId){
+                        item.pic2=res
+                        return
+                       }
+                   })
+               }
+               else  if(type==3||type==4){
+                state.bankData.forEach((item,index)=>{
+                    if(type==3&&id==item.data1.personId){
+                     item.pic1=res
+                     return
+                    }
+                    else if(type==4&&id==item.data2.personId){
+                     item.pic2=res
+                     return
+                    }
+                })
+            }
         }
     },
   
@@ -62,7 +112,16 @@ const resource = {
             }).catch((error) => {
                 console.log(error);
             })
-          }
+          },
+          uploadResourseImage({commit},data){
+            uploadImage(data.data).then( (response) => {
+                commit('UPLOAD_RESOURCE_IMAGE',{res:response.data.filePath,id:data.insuredId,type:data.accessoryType})
+             }).catch((error) => {
+                 console.log(error);
+             })
+           
+          },
+
   
     }
   }

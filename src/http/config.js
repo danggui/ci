@@ -4,7 +4,6 @@ export default {
     baseURL: 'http://192.168.9.193:8090/ecosaasci/api/ecosaas/ci',
     // 请求头信息
     headers: {
-      
       'Authorization' : "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJsb2NhbGVcIjpcInpoX0NOXCIsXCJ1c2VySWRcIjpcIjVcIixcInVzZXJuYW1lXCI6XCJhZG1pblwifSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE1NDgzMTg5MjN9.QG5FTvInBN0X7v5z8OHrWxU2LrfNye91pOwSoFL-jmb0pfbDd43yKH3kKhW8-r-umgoijKzUHsxS-1u80JkPnw",
       'TenantId':  1
     },
