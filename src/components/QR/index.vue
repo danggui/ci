@@ -24,6 +24,7 @@
 
 <script>
 import VueQr from 'vue-qr'
+import {getPerson} from "@/utils/auth"
 export default {
    props: ["label","type","must","list","code"],
    components: { VueQr },
@@ -72,7 +73,7 @@ export default {
       console.log("uploadFile", params);
       const formData = new FormData()
       formData.append('file',params.file)
-      formData.append('insuredId',11)
+      formData.append('insuredId',getPerson())
       formData.append('accessoryType',this.type)
       this.$store.dispatch("uploadSingleImage",{formData:formData,code:this.code})
      

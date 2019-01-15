@@ -108,6 +108,7 @@ export default function $axios(options) {
 
             case 401:
               err.message = '未授权，请登录'
+              Message.error({message: '未授权，请。。。'});
               break
 
             case 403:

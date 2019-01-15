@@ -55,7 +55,6 @@ export const  deleteImage = (id) => {
 }
 
 export const  saveApply = (data) => {  
-
     return axios({
         url: `/claim/claim`,
         method: 'post',

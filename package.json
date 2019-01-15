@@ -5,13 +5,21 @@
   "author": "elsa dou",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env dev",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "start:dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env dev",
+    "start:test": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env test",
+    "start:pre": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env pre",
+    "start:prod": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env prod",
+    "build:dev": "node build/build.js --env dev",
+    "build:test": "node build/build.js --env test",
+    "build:pre": "node build/build.js --env pre",
+    "build:prod": "node build/build.js --env prod"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -27,7 +35,8 @@
     "vue-qr": "^1.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4"
+    "vuex-persistedstate": "^2.5.4",
+    "yargs": "^12.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

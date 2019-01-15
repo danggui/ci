@@ -48,7 +48,7 @@ import { isExternal } from '@/utils'
 import Item from './Item'
 import AppLink from './Link'
 import FixiOSBug from './FixiOSBug'
-
+import {getPerson} from "@/utils/auth"
 export default {
   name: 'SidebarItem',
   components: { Item, AppLink },
@@ -115,29 +115,29 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
          }).then(()=>{   
-          this.$store.dispatch('showApply',11)
-          this.$store.dispatch('getImageList',{id:11,code:115,kind:0})
-          this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
+          this.$store.dispatch('showApply',getPerson())
+          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+          this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
            }  ).catch( ()=> {  })
         }
         else{
-          this.$store.dispatch('showApply',11)
-          this.$store.dispatch('getImageList',{id:11,code:115,kind:0})
-          this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
+          this.$store.dispatch('showApply',getPerson())
+          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+          this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
         } 
       }else{
         Storage.set("isEditting",0)
       if(to=="/family"){
-        this.$store.dispatch('showFamilyInfo',{id:11,type:1});
+        this.$store.dispatch('showFamilyInfo',{id:getPerson(),type:1});
       }
       if(to=="/download"){
-         this.$store.dispatch('downloadInfo',11)
+         this.$store.dispatch('downloadInfo',getPerson())
       }
        if(to=="/claim"){
-         this.$store.dispatch('showMyClaim',1)
+         this.$store.dispatch('showMyClaim',getPerson())
       }
         if(to=="/resource"){
-         this.$store.dispatch('showAllResource',11)
+         this.$store.dispatch('showAllResource',getPerson())
       }
     
       }

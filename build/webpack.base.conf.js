@@ -2,8 +2,10 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+// 引入webpack.env.conf模块
+const envConfig = require('./webpack.env.conf')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -12,6 +14,14 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
+   // 配置DefinePlugin插件
+   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': envConfig
+    })
+    
+  ],
+
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -89,5 +99,6 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  
 }

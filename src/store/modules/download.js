@@ -4,9 +4,9 @@ import {downloadMaterial} from '@/http/interface'
 const download = {
     state: {
         list:[
-            {name:'download.team_insurance_apply',description:'32423sfsdafadsfs222222222222',isShow:true,isActive:false,src:""},
-            {name:'download.insurance_notice',description:'2ewerwerwerwe22',isShow:false,isActive:true,src:""},
-            {name:'download.pay_approve',description:'2werewrwe232423444444444442342',isShow:false,isActive:true,src:""}    
+            {name:'download.team_insurance_apply',description:'elsa随便写的',isShow:true,isActive:false,src:""},
+            {name:'download.insurance_notice',description:'木得需求，你打我呀',isShow:false,isActive:true,src:""},
+            {name:'download.pay_approve',description:'略略略略略略',isShow:false,isActive:true,src:""}    
           ] 
     },
 

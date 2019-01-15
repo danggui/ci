@@ -50,7 +50,7 @@ import LabelLine from "@/components/LabelLine"
 import QR from "@/components/QR"
 import Card from "@/components/Card"
 import Storage from "@/utils/storage"
-
+import {getPerson} from "@/utils/auth"
 export default {
   name: 'Apply',
   components:{LabelLine,Card,QR},
@@ -115,8 +115,8 @@ export default {
        this.num=item
     },
      getIntervalList(){
-         this.$store.dispatch('getImageList',{id:11,code:115,kind:0})
-         this.$store.dispatch('getImageList',{id:11,code:116,kind:0})
+         this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+         this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
      },
      chooseDepart(val){
          if(val=="115"){
@@ -139,7 +139,7 @@ export default {
           type: 'warning'
         }); }
         const data={
-            'personId':11,
+            'personId':getPerson(),
             "insuredId":this.$store.state.apply.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
@@ -153,7 +153,7 @@ export default {
         },
         submitDraft(){
         const data={
-            'personId':11,
+            'personId':getPerson(),
             "insuredId":this.$store.state.apply.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",

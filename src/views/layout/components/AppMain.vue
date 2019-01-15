@@ -32,6 +32,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import FamilyCard from "@/components/FamilyCard"
+import { getPerson } from '@/utils/auth'
 export default {
   name: 'AppMain',
   components:{FamilyCard},
@@ -78,7 +79,7 @@ export default {
         item.isActive=false
       })
         this.label[index].isActive=true
-      this.$store.dispatch('showFamilyInfo',{id:11,type:type});    
+      this.$store.dispatch('showFamilyInfo',{id:getPerson(),type:type});    
     },
     handleEdit(){
         this.$router.push({path: '/claim'});
