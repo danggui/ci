@@ -20,10 +20,10 @@ export const constantRouterMap = [
     {
       path: '/',
       component: Layout,
-      redirect: 'notice',
+      redirect: 'ci/notice',
       children: [
         {
-          path: 'notice',
+          path: 'ci/notice',
           component: () => import('@/views/notice/index'),
           name: 'Notice',
           meta: { title: 'notice', icon: 'notice', noCache: true, words:true, }
@@ -32,11 +32,11 @@ export const constantRouterMap = [
     },
 
     {
-      path: '/flow',
+      path: '/ci/flow',
       component: Layout,
       children: [
         {
-          path: '/flow',
+          path: '/ci/flow',
           component: () => import('@/views/flow/index'),
           name: 'Flow',
           meta: { title: 'flow', icon: 'flow', noCache: true, words:true, }
@@ -44,11 +44,11 @@ export const constantRouterMap = [
       ]
     },
     {
-      path: '/download',
+      path: '/ci/download',
       component: Layout,
       children: [
         {
-          path: '/download',
+          path: '/ci/download',
           component: () => import('@/views/download/index'),
           name: 'Download',
           meta: { title: 'download', icon: 'download', noCache: true, words:true, }
@@ -56,11 +56,11 @@ export const constantRouterMap = [
       ]
     },
     {
-      path: '/apply',
+      path: '/ci/apply',
       component: Layout,
       children: [
         {
-          path: '/apply',
+          path: '/ci/apply',
           component: () => import('@/views/apply/index'),
           name: 'Apply',
           meta: { title: 'apply', icon: 'apply', noCache: true, words:false }
@@ -75,11 +75,11 @@ export const constantRouterMap = [
       label:"title_account"
     },
     {
-      path: '/family',
+      path: '/ci/family',
       component: Layout,
       children: [
         {
-          path: '/family',
+          path: '/ci/family',
           component: () => import('@/views/family/index'),
           name: 'Family',
           meta: { title: 'family', icon: 'family', noCache: true,words:false }
@@ -87,11 +87,11 @@ export const constantRouterMap = [
       ]
     },
     {
-      path: '/claim',
+      path: '/ci/claim',
       component: Layout,
       children: [
         {
-          path: '/claim',
+          path: '/ci/claim',
           component: () => import('@/views/claim/index'),
           name: 'Claim',
           meta: { title: 'claim', icon: 'claim', noCache: true,words:false }
@@ -99,11 +99,11 @@ export const constantRouterMap = [
       ]
     },
     {
-      path: '/resource',
+      path: '/ci/resource',
       component: Layout,
       children: [
         {
-          path: '/resource',
+          path: '/ci/resource',
           component: () => import('@/views/resource/index'),
           name: 'Resource',
           meta: { title: 'resource', icon: 'resource', noCache: true,words:false }
@@ -113,11 +113,11 @@ export const constantRouterMap = [
   ]
   export const mobilePage=[
     {
-      path: '/mobile',
+      path: '/ci/mobile',
       component: Layout,
       children: [
         {
-          path: '/mobile',
+          path: '/ci/mobile',
           component: () => import('@/views/mobile/index'),
           name: 'Phote',
           meta: { title: 'photo', icon: 'photo', noCache: true,words:false }
