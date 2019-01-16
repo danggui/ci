@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
       <el-breadcrumb-item >
-        <span ><img src="/static/images/start.png">{{ generateTitle(item.meta.title) }}</span>
+        <span ><img src="../../../static/images/start.png">{{ generateTitle(item.meta.title) }}</span>
       </el-breadcrumb-item>
   </el-breadcrumb>
 </template>

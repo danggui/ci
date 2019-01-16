@@ -180,14 +180,14 @@ export default {
   .notice-module{
     margin-top: 25px;
     .notice-label{
-    background:url("/static/images/label.png") no-repeat;
+    background:url("../../../static/images/label.png") no-repeat;
     text-indent: 30px;
     color: #ffffff;
     padding: 3px 0;
     color: #ffffff;  
     }
      .notice-label2{
-    background:url("/static/images/label2.png") no-repeat;
+    background:url("../../../static/images/label2.png") no-repeat;
     text-indent: 30px;
     color: #ffffff;
     padding: 3px 0;
