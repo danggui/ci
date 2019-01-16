@@ -2,7 +2,7 @@ const API_HOST = process.env.API_HOST;
 export default {
     method: 'get',
     // 基础url前缀
-    baseURL: `http://${API_HOST}/ecosaasci/api/ecosaas/ci`,
+    baseURL: `${API_HOST}/api/ecosaas/ci`,
     
     // 请求头信息
     headers: {

@@ -5,8 +5,14 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 下载依赖
 npm install
+或者使用淘宝镜像 cnpm install
+
+
+
+# 研发环境
+npm run build:dev
 
 # 测试环境
 npm run build:test
