@@ -19,7 +19,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': envConfig
     })
-    
   ],
 
   context: path.resolve(__dirname, '../'),
