@@ -11,6 +11,7 @@
 <script>
 import { Navbar, Sidebar,Right } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import { getPerson } from '@/utils/auth'
 
 export default {
   name: 'Layout',
@@ -20,6 +21,9 @@ export default {
     Right
   },
   mixins: [ResizeMixin],
+  mounted(){
+    this.$store.dispatch("checkMaterial",getPerson())
+  },
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar
