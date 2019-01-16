@@ -18,12 +18,12 @@ export const constantRouterMap = [
     label:"title_service"
   },
     {
-      path: '/',
+      path: '/ci',
       component: Layout,
-      redirect: 'ci/notice',
+      redirect: '/ci/notice',
       children: [
         {
-          path: 'ci/notice',
+          path: '/ci/notice',
           component: () => import('@/views/notice/index'),
           name: 'Notice',
           meta: { title: 'notice', icon: 'notice', noCache: true, words:true, }
