@@ -22,7 +22,8 @@ export default {
   },
   mixins: [ResizeMixin],
   mounted(){
-    this.$store.dispatch("checkMaterial",getPerson())
+    this.$store.dispatch("checkMaterial",getPerson()) 
+    this.$store.dispatch("checkStatus",getPerson())
   },
   computed: {
     sidebar() {

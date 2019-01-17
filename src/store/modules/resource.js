@@ -20,14 +20,14 @@ const resource = {
                 state.personData.push( 
                 {
                     name:myData.name,
-                    sex:myData.sex,
+                    sex:myData.sexName,
                     date:parseTime(myData.birthDate),
                     id:myData.idName+' | '+myData.idNumber})
             data.familyInfo.forEach((item,index)=>{
                 state.familyData.push({
                     relation:item.relativeName,
                     name:item.name,
-                    sex:item.sex,
+                    sex:item.sexName,
                     date:parseTime(item.birthDate),
                     id:item.idName+' | '+item.idNumber
                 })

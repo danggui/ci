@@ -1,9 +1,10 @@
 
-import {isMaterial} from '@/http/interface'
+import {isMaterial,isStatus} from '@/http/interface'
 
 const appMain = {
     state: {
         material:true,
+        status:true
       
     },
 
@@ -11,6 +12,9 @@ const appMain = {
         CHECK_MATERIAL: (state, isMaterial) => {
            state.material=isMaterial
           },
+          CHECK_STATUS: (state, isStatus) => {
+            state.status=isStatus
+         },
        
     },
   
@@ -23,7 +27,16 @@ const appMain = {
                 console.log(error);
             })
            
-          }
+          },
+          checkStatus({ commit }, id) {
+            isStatus(id).then( (response) => {
+            const isStatus=response.data.familyCertificate
+            commit('CHECK_STATUS', isStatus)
+        }).catch((error) => {
+            console.log(error);
+        })
+       
+      }
          
   
     }

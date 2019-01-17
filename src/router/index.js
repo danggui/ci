@@ -133,15 +133,17 @@ const router = new Router({
   routes: constantRouterMap.concat(mobilePage)
 })
 router.beforeEach((to, from, next) => {
-   if(from.path == "/apply") {
-  MessageBox.confirm('编辑内容未保存，是否离开？','提示',{
-  confirmButtonText: '确定',
-  cancelButtonText: '取消',
-   }).then(
-     ()=>{ next() }
-  ).catch( ()=>next(false) ) 
-  
-}else { 
+  if (to.path=="/apply"){
+    const status = router.app.$store.state.appMain.status
+    if(!status){
+      next({path:'/'})
+    }
+  }
+  if(from.path == "/apply") {
+    MessageBox.confirm('编辑内容未保存，是否离开？','提示',{
+    confirmButtonText: '确定',
+    cancelButtonText: '取消', }).then(()=>{ next()}).catch( ()=>next(false) ) 
+  }else { 
 next() //必须加
 }
 })

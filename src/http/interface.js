@@ -12,6 +12,13 @@ export const isMaterial = (id) => {
         method: 'get'
     })
 }
+
+export const isStatus = (id) => {
+    return axios({
+        url: `/personSecurity/familyCertificateStatus/${id}`,
+        method: 'get'
+    })
+}
 export const downloadMaterial = (id) => {
     return axios({
         url: `/claim/claimDatas/${id}`,

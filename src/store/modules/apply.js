@@ -19,6 +19,7 @@ function myMap() {
 
 const apply = {
     state: {
+        isOK:false,
         value: '',
         options:[],
         identify:[],
@@ -37,7 +38,7 @@ const apply = {
     },
 
     mutations: {
-        SET_INFO: (state, data) => {
+        SET_INFO: (state, res) => {
             Storage.set("isEditting",1)
             state.isUpdate=false,
             state.options=[],
@@ -48,7 +49,8 @@ const apply = {
             state.card_num=[],
             state.card_holder=[],
             state.info=[],
-            data.forEach((item, index)=> {
+            state.isOk=res.status,
+            res.data.forEach((item, index)=> {
             state.identify=state.identify.concat(item.idNumber)
             state.mobile=state.mobile.concat(item.mobile)
             state.email=state.email.concat(item.email)
@@ -225,7 +227,7 @@ const apply = {
         SAVE_APPLY:(state,data)=>{
             Storage.set("isEditting",0)
             if(data.status==118){
-                if(Storage.get("code")=="115"){
+                if(Storage.get("code")==115){
                 state.pic_list1=[]
                 }else{
                     state.pic_list2=[]
@@ -242,7 +244,7 @@ const apply = {
     actions: {
           showApply({ commit }, id) {
             showInfo(id).then( (response) => {
-               commit('SET_INFO', response.data.familySecurity)
+               commit('SET_INFO', {data:response.data.familySecurity,status:response.data.replenishData})
             }).catch((error) => {
                 console.log(error);
             })

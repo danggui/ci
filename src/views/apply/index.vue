@@ -21,12 +21,12 @@
  </div>
  <template v-if="isOutpatient==1">
  <div class="apply-qr"  v-for="(item,index) in label1"  :key="index" >
-      <q-r  :label="item.value"  :must="item.must" :type="type1[index]" :list="fileList1[index]" :code="code[0]"/>      
+      <q-r  :label="item.value"  :must="item.must" :type="type1[index]" :list="fileList1[index]" :code="code[0]" :id="insuredId"/>      
  </div>
  </template>
   <template v-else>
   <div class="apply-qr"  v-for="(item,index) in label2"  :key="index" >
-      <q-r  :label="item.value"  :must="item.must" :type="type2[index]"  :list="fileList2[index]" :code="code[1]" />      
+      <q-r  :label="item.value"  :must="item.must" :type="type2[index]"  :list="fileList2[index]" :code="code[1]"  :id="insuredId"/>      
  </div>
   </template>
  <div class="apply-upload">
@@ -38,8 +38,8 @@
            <el-button  plain  :disabled="!checked"  @click="submitDraft">保存草稿</el-button>
       </div>
       <div v-else>
-           <el-button type="primary" :disabled="!checked" @click="editForm">确认1提交</el-button>
-           <el-button  plain  :disabled="!checked"  @click="editDraft">保存1草稿</el-button>
+           <el-button type="primary" :disabled="!checked" @click="editForm">确认提交</el-button>
+           <el-button  plain  :disabled="!checked"  @click="editDraft">保存草稿</el-button>
       </div>
  </div>
   </div>
@@ -57,8 +57,8 @@ export default {
   data() {
     return {
       options:[
-          {value:'115',label:'门急诊'},
-          {value:'116',label:'住院'} 
+          {value:115,label:'门急诊'},
+          {value:116,label:'住院'} 
           ],
            department: Storage.get("department")||'门急诊',
            isOutpatient:Storage.get("isOutpatient")||1,
@@ -85,7 +85,7 @@ export default {
            checkFilled:true,
            type1:["101","102","103","104","105"],
            type2:["106","107","108","109","110","111"],
-           code:["115","116"],
+           code:[115,116],
            defaultTime:new Date() ,
            num:0
            }
@@ -100,6 +100,9 @@ export default {
       },
       isUpdate(){
           return this.$store.state.apply.isUpdate
+      },
+      insuredId(){
+          return this.$store.state.apply.info[this.num].insuredId
       }
      
   },
@@ -113,23 +116,25 @@ export default {
     },
     personNum(item){
        this.num=item
+        this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+        this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
     },
      getIntervalList(){
          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
          this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
      },
      chooseDepart(val){
-         if(val=="115"){
+         if(val==115){
           this.isOutpatient=1
           Storage.set("isOutpatient",1)
           Storage.set("department",'门急诊') 
-          Storage.set("code",'115') 
+          Storage.set("code",115) 
          }
-          else if(val=="116"){
+          else if(val==116){
               this.isOutpatient=2
               Storage.set("isOutpatient",2)
               Storage.set("department",'住院')
-              Storage.set("code",'116') 
+              Storage.set("code",116) 
           }
      },
         submitForm(){
@@ -140,7 +145,7 @@ export default {
         }); }
         const data={
             'personId':getPerson(),
-            "insuredId":this.$store.state.apply.info[this.num].insuredId,
+            "insuredId":this.insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":this.defaultTime,
@@ -154,7 +159,7 @@ export default {
         submitDraft(){
         const data={
             'personId':getPerson(),
-            "insuredId":this.$store.state.apply.info[this.num].insuredId,
+            "insuredId":this.insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
@@ -162,14 +167,14 @@ export default {
             "personSecurityId":this.$store.state.apply.info[this.num].personSecurityId,
             "tenantId":this.$store.state.apply.info[this.num].tenantId
         }
-        console.log(data)
+       
         this.$store.dispatch("saveMyApply",{data:data,status:117})
         },
         editForm(){
             let id= this.$store.state.apply.edit_id
             const data={
             'personId':11,
-            "insuredId":this.$store.state.apply.info[this.num].insuredId,
+            "insuredId":this.insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
@@ -180,7 +185,18 @@ export default {
             this.$store.dispatch("saveMyEdit",{data:data,id:id})
         },
         editDraft(){
-
+            let id= this.$store.state.apply.edit_id
+            const data={
+            'personId':11,
+            "insuredId":this.insuredId,
+            "chargeType":Storage.get("code")||115,
+            "submitWay":"PC",
+            "doctorDate":new Date(this.defaultTime),
+            "claimStatus":117,
+            "personSecurityId":this.$store.state.apply.info[this.num].personSecurityId,
+            "tenantId":this.$store.state.apply.info[this.num].tenantId
+        }
+            this.$store.dispatch("saveMyEdit",{data:data,id:id})
         }
    
   }

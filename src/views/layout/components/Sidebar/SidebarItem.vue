@@ -21,7 +21,7 @@
         <item v-if="item.meta" :icon="item.meta.icon"  :title="generateTitle(item.meta.title)" />
       </template>
 
-      <template v-for="child in item.children" v-if="!child.hidden">
+      <template v-for="child in item.children">
         <sidebar-item
           v-if="child.children&&child.children.length>0"
           :is-nest="true"
@@ -110,6 +110,22 @@ export default {
     generateTitle,
     dispatchEvent(to){
       if(to=="/apply"){ 
+    const status = this.$store.state.appMain.status
+    if(!status){
+      this.$alert('首次申请，需完成全部证照上传', '提示', {
+      confirmButtonText: '确定',
+      callback: action => {
+            this.$message({
+              type: 'info',
+              message: `请补充材料`
+            });  
+      }
+       
+      });
+      return 
+      }
+  
+  
       if(Storage.get("isEditting")==1){
       this.$confirm('编辑内容未保存，是否离开？','提示',{
         confirmButtonText: '确定',
