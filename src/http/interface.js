@@ -40,13 +40,22 @@ export const showEditInfo = (id) => {
         method: 'get'
     })
 }
-export const uploadImage = (data) => {    
+export const uploadImage = (data,type,id) => {    
     return axios({
         url: `/upload/imageUpload`,
         method: 'post',
         data
     })
 }
+/*
+export const uploadImage = (data,type,id) => {    
+    return axios({
+        url: `http://192.168.96.79:7002/api/ecosaas/ci/upload/imageUpload?accessoryType=${type}&insuredId=${id}`,
+        method: 'post',
+        data
+    })
+}
+*/
 
 export const updateImage = (id,code,kind) => {   
     return axios({

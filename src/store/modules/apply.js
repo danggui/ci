@@ -259,7 +259,7 @@ const apply = {
 
 
           uploadSingleImage({commit},data){
-            uploadImage(data.formData).then( (response) => {
+            uploadImage(data.formData,data.type,data.id).then( (response) => {
                 commit('UPLOAD_IMAGE',{res:response.data,code:data.code})
              }).catch((error) => {
                  console.log(error);

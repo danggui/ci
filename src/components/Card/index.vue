@@ -71,6 +71,7 @@ export default {
             isShow:true,
             isDegree: true,
             value:this.$store.state.apply.value,
+            //value:"",
             value1: this.$store.state.apply.time,
             pickerOptions1: {
                 disabledDate(time) {

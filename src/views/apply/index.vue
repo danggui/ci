@@ -116,8 +116,8 @@ export default {
     },
     personNum(item){
        this.num=item
-        this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
-        this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
+        this.$store.dispatch('getImageList',{id:this.insuredId,code:115,kind:0})
+        this.$store.dispatch('getImageList',{id:this.insuredId,code:116,kind:0})
     },
      getIntervalList(){
          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})

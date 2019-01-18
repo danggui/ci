@@ -132,14 +132,14 @@ export default {
         cancelButtonText: '取消',
          }).then(()=>{   
           this.$store.dispatch('showApply',getPerson())
-          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
-          this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
+          //this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+          //this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
            }  ).catch( ()=> {  })
         }
         else{
           this.$store.dispatch('showApply',getPerson())
-          this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
-          this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
+         // this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
+          //this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
         } 
       }else{
         Storage.set("isEditting",0)

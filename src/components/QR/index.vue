@@ -73,9 +73,12 @@ export default {
       console.log("uploadFile", params);
       const formData = new FormData()
       formData.append('file',params.file)
+      //formData.append('insuredId',this.id)
+      //formData.append('accessoryType',this.type)
       formData.append('insuredId',this.id)
       formData.append('accessoryType',this.type)
-      this.$store.dispatch("uploadSingleImage",{formData:formData,code:this.code})
+      
+      this.$store.dispatch("uploadSingleImage",{formData:formData,type:this.type,id:this.id,code:this.code})
      
       }
       
