@@ -4,6 +4,8 @@ import qs from 'qs';
 import {Message,Loading} from 'element-ui'
 import Cookies from "js-cookie";
 import router from '@/router'
+const ERR_OK = "0";
+
 
 // 使用vuex做全局loading时使用
 // import store from '@/store'
@@ -78,25 +80,22 @@ export default function $axios(options) {
         } else {
           data = response.data
         }
-
-        // 根据返回的code值来做不同的处理
-        switch (data.rc) {
-          case 1:
-            console.log(data.desc)
-            break;
-          case 0:
-            store.commit('changeState')
-            // console.log('登录成功')
-          default:
-        }
+        if(data.bizCode!=ERR_OK){
+          Message({
+                  message: data.message,
+                  type: 'error',
+                  duration: 5 * 1000
+                })
+                const err = new Error(data.message)
+                throw err
+        }else{
         // 若不是正确的返回code，且已经登录，就抛出错误
         // const err = new Error(data.desc)
         // err.data = data
         // err.response = response
         // throw err
-
-
         return data
+        }
       },
       err => {
         Loading.service().close();

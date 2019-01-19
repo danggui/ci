@@ -24,26 +24,26 @@
     </el-option>
    </el-select>
     <span v-else>{{value}}</span>
-   <span class="row-arrow">
+    <div class="row-arrow">
               <arrow  @arrowAction="toggleInfo"  :rotate="isDegree"/>
-      </span>
+    </div>
      </div>
-     <div v-show="isShow">
+     <div v-show="!isShow">
      <div class="card-flex">
      <span>证件号码</span>
-     <span>{{identify[num]}}</span>
+     <span v-if="update">{{identify[num]}}</span>
      </div>
      <div class="card-flex">
      <span >手机号码</span>
-      <span>{{mobile[num]}}</span>
+      <span v-if="update">{{mobile[num]}}</span>
      </div>
      <div class="card-flex">
      <span >电子邮箱</span>
-      <span>{{email[num]}}</span>
+      <span v-if="update">{{email[num]}}</span>
     </div>
     <div class="card-flex">
      <span>银行卡</span>
-      <span>{{ bank_name[num]}} | {{card_num[num]}} | {{card_holder[num]}}</span>
+      <span v-if="update">{{ bank_name[num]}} | {{card_num[num]}} | {{card_holder[num]}}</span>
     
 
     </div>
@@ -68,11 +68,12 @@ export default {
     },
     data() {
         return {
+            initiate:false,
             isShow:true,
-            isDegree: true,
-            value:this.$store.state.apply.value,
+            isDegree: false,
+            //value:this.$store.state.apply.value,
             //value:"",
-            value1: this.$store.state.apply.time,
+            //value1: this.$store.state.apply.time,
             pickerOptions1: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
@@ -89,7 +90,26 @@ export default {
         }
     },
     computed:{  
-      
+         value:{
+                    // getter
+                    get: function () {
+                        return this.$store.state.apply.value
+                    },
+                    // setter
+                    set: function (newValue) {
+                        this.$store.state.apply.value = newValue;
+                    }
+         },
+         value1:{
+             // getter
+                    get: function () {
+                        return  this.$store.state.apply.time
+                    },
+                    // setter
+                    set: function (newValue) {
+                        this.$store.state.apply.time = newValue;
+                    }
+         },
         options(){
             return this.$store.state.apply.options
         },
@@ -116,6 +136,7 @@ export default {
     },
     methods:{
         getPerson(item){
+          this.initiate=true,
           this.$emit('getPerson', item)  
         },
         toggleInfo(){
@@ -150,5 +171,7 @@ export default {
    }
    .row-arrow{
        margin-left: 25px;
+       display: inline-block;
+       margin-top: 3px;
    }
 </style>

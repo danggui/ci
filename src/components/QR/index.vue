@@ -4,13 +4,14 @@
      <div class="content">
  <el-upload
   action=""
-  :http-request="upload"
+  
   list-type="picture-card"
   :before-upload="beforeUpload"
+  :before-remove="beforeRemove"
   :on-preview="handlePictureCardPreview"
   :on-remove="handleRemove"
-  :before-remove="beforeRemove"
   :file-list="list"
+  :http-request="upload"
   >
   <i class="el-icon-plus"></i>
   <vue-qr class="QRImage"  :text="config.value" :size="143" :margin="5"  @click.native.stop></vue-qr> 
@@ -45,9 +46,13 @@ export default {
     },
     methods: {
       beforeUpload(file){
+        if(!Storage.get("isSelect")){
+           this.$message.error('请先选择就诊人');
+           return false;
+        }
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
-        const isLt3M = file.size / 1024 / 1024 < 3;
+        const isLt3M = file.size / 1024 /1024  < 1;
         if (!(isJPG||isPNG)) {
           this.$message.error('上传图片只能是 JPG 或者 PNG 格式');
         }
@@ -55,22 +60,24 @@ export default {
           this.$message.error('图片大小不能超过 3MB');
         }
         return (isJPG||isPNG) && isLt3M;
-
-
       },
       beforeRemove(file, fileList) {
+        const isType = file.fileName?true:false
+        if(isType){
         return this.$confirm(`确定移除 ${ file.fileName}？`);
+        }
       },
       handleRemove(file, fileList) {
-        console.log(file);
+        const isType = file.fileName?true:false
+        if(isType){
         this.$store.dispatch("deleteSingleImage",{id:file.id,code:this.code})
+        }
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
-      upload(params) {
-      console.log("uploadFile", params);
+      upload(params) {  
       const formData = new FormData()
       formData.append('file',params.file)
       //formData.append('insuredId',this.id)
@@ -81,7 +88,6 @@ export default {
       this.$store.dispatch("uploadSingleImage",{formData:formData,type:this.type,id:this.id,code:this.code})
      
       }
-      
     }
 }
 </script>

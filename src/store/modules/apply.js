@@ -1,5 +1,8 @@
 
 import {showInfo,showEditInfo,uploadImage,updateImage,deleteImage,saveApply,saveEdit} from '@/http/interface'
+import VueRouter from 'vue-router';
+import { getPerson } from '@/utils/auth'
+import router from '../../router';
 function myMap() {
     return new Map()
             .set(101,0)
@@ -19,7 +22,6 @@ function myMap() {
 
 const apply = {
     state: {
-        isOK:false,
         value: '',
         options:[],
         identify:[],
@@ -34,12 +36,19 @@ const apply = {
         edit_id:"",
         isUpdate:false,
         time:'',
+        insuredId:'',
+        code:''
        
     },
 
     mutations: {
         SET_INFO: (state, res) => {
-            Storage.set("isEditting",1)
+            Storage.set("isEditting",1),
+            Storage.remove("isSelect"),
+            state.value ='',
+            state.time ='',
+            state.pic_list1=[],
+            state.pic_list2=[],
             state.isUpdate=false,
             state.options=[],
             state.identify=[],
@@ -49,7 +58,6 @@ const apply = {
             state.card_num=[],
             state.card_holder=[],
             state.info=[],
-            state.isOk=res.status,
             res.data.forEach((item, index)=> {
             state.identify=state.identify.concat(item.idNumber)
             state.mobile=state.mobile.concat(item.mobile)
@@ -69,16 +77,19 @@ const apply = {
                     {label:item.name}
                 ))
             })
-            state.value=state.options[0].label
+           
            //提交前获得数据
            
           },
           SET_EDIT_INFO: (state, data) => {
+             console.log(data)
            Storage.set("isEditting",1)
+           Storage.set("isSelect",1)
            const code=data.code
            const res=data.res
            const img=data.img
-            
+            state.code= code
+            state.insuredId=data.id
             state.edit_id=data.id
             state.isUpdate=true,
             state.options=[],
@@ -119,7 +130,9 @@ const apply = {
             let pic10= []
             let pic11= []
             let pic12= []
-                if(code==115){
+             if(code==115){
+            Storage.set("isOutpatient",1)
+            Storage.set("department",'门急诊')
             state.pic_list1=[]
             pic1=img.outpatients
             pic2=img.medicals
@@ -135,6 +148,8 @@ const apply = {
             state.pic_list1.push(pic6)
            }
            else{
+            Storage.set("isOutpatient",2)
+            Storage.set("department",'住院')
             state.pic_list2=[]
             pic7=img.outpatients
             pic8=img.medicals
@@ -177,8 +192,12 @@ const apply = {
                  }
          },
           UPDATE_IMAGE:(state,data)=>{
+             
            const code=data.code
            const res=data.data
+           const num=data.num
+           console.log(data)
+           state.insuredId=state.info[num].insuredId
            let pic1= []
            let pic2= []
            let pic3= []
@@ -191,6 +210,7 @@ const apply = {
            let pic10= []
            let pic11= []
            let pic12= []
+          state.value =state.options[num].label
            if(code==115){
             state.pic_list1=[]
             pic1=res.outpatients
@@ -225,19 +245,36 @@ const apply = {
         },
 
         SAVE_APPLY:(state,data)=>{
+            state.bank_name=[]
+            state.card_holder=[]
+            state.card_num=[]
+            state.email=[]
+            state.identify=[]
+            state.info=[]
+            state.insuredId=""
+            state.mobile=[]
+            state.options=[]
+            state.pic_list1=[]
+            state.pic_list2=[]
             Storage.set("isEditting",0)
-            if(data.status==118){
-                if(Storage.get("code")==115){
-                state.pic_list1=[]
-                }else{
-                    state.pic_list2=[]
-                }
-            }
+            router.push("./claim")
             
         },
         SAVE_EDIT:(state,data)=>{
+            state.bank_name=[]
+            state.card_holder=[]
+            state.card_num=[]
+            state.email=[]
+            state.identify=[]
+            state.info=[]
+            state.insuredId=""
+            state.mobile=[]
+            state.options=[]
+            state.pic_list1=[]
+            state.pic_list2=[]
             Storage.set("isEditting",0)
-          
+            router.push("./claim")
+           
         }
     },
   
@@ -249,6 +286,7 @@ const apply = {
                 console.log(error);
             })
           },
+          //获取修改信息及图片
           showEditApply({ commit }, id) {
             showEditInfo(id).then( (response) => {
                commit('SET_EDIT_INFO', {res:response.data.personSecurity,img:response.data.claimImages,time:response.data.doctorDate,code:response.data.chargeType,id:response.data.id})
@@ -266,14 +304,15 @@ const apply = {
              })
            
           },
-
+           //初始化图片列表
           getImageList({commit},data){
             updateImage(data.id,data.code,data.kind).then( (response) => {
-                commit('UPDATE_IMAGE', {data:response.data,code:data.code})
+                commit('UPDATE_IMAGE', {data:response.data,code:data.code,num:data.num})
              }).catch((error) => {
                  console.log(error);
              })
           },
+          //删除单张图片
           deleteSingleImage({commit},data){
             deleteImage(data.id).then( (response) => {
                 commit('DELETE_IMAGE', {res:response.data,code:data.code})
@@ -282,17 +321,22 @@ const apply = {
              })
           },
          
-        saveMyApply({commit},data){
+          //保存或者保存草稿
+        saveMyApply({commit, dispatch},data){
             saveApply(data.data).then((response) => {
                 commit('SAVE_APPLY', {res:response,status:data.status})
+                dispatch('showMyClaim',getPerson())
+                console.log(getPerson())
              }).catch((error) => {
                  console.log(error);
              })
           },
-
-          saveMyEdit({commit},data){
+         //修改后保存或保存草稿
+          saveMyEdit({commit, dispatch},data){
             saveEdit(data.data,data.id).then((response) => {
                 commit('SAVE_EDIT', {res:response.data,code:data.code})
+                dispatch('showMyClaim',getPerson())
+                console.log(getPerson())
              }).catch((error) => {
                  console.log(error);
              })

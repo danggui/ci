@@ -127,11 +127,11 @@ export default {
     
       },
       handleAvatarSuccess(res, file) {
-          console.log(file)
+       
         this.imageUrl = URL.createObjectURL(file.raw);
       },
        handleRemove(file, fileList) {
-        console.log(file);
+       
        //this.$store.dispatch("deleteSingleImage",{id:file.id,code:this.code})
       },
      upload(params) {

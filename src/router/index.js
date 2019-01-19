@@ -139,12 +139,16 @@ router.beforeEach((to, from, next) => {
       next({path:'/'})
     }
   }
+  if(Storage.get("isEditting")==1){
   if(from.path == "/apply") {
     MessageBox.confirm('编辑内容未保存，是否离开？','提示',{
     confirmButtonText: '确定',
     cancelButtonText: '取消', }).then(()=>{ next()}).catch( ()=>next(false) ) 
   }else { 
-next() //必须加
-}
-})
+    next() //必须加
+    }
+  }else{
+    next()
+  }
+  })
 export default router 

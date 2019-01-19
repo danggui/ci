@@ -44,7 +44,7 @@ export default {
           status:"待生效",isActive:false
         },
         {
-          status:"已生效",isActive:false
+          status:"已失效",isActive:false
         }]
     } 
   },

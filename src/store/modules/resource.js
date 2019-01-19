@@ -75,9 +75,6 @@ const resource = {
               const id=data.id
               const type=data.type
               const res=data.res
-        
-
-                console.log(res)
                if(type==1||type==2){
                    state.idData.forEach((item,index)=>{
                        if(type==1&&id==item.data1.personId){

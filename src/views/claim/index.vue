@@ -2,7 +2,7 @@
   <div class="claim-container ">
    <el-table
     :header-cell-style='styleObj'
-    :data="tableData"
+    :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
     style="width: 100%;"
     row-key="id"       
     :row-class-name="getRowClass"
@@ -21,7 +21,7 @@
       </template>
     </el-table-column>
     <el-table-column  align="center" 
-      label="日期"
+      label="就诊日期"
       >
       <template slot-scope="scope">
       <span style="margin-left: 10px">{{ scope.row.data2 }}</span>
@@ -34,12 +34,12 @@
     </el-table-column>
     <el-table-column  align="center" 
       prop="check_amount"
-      label="发票总金额（元）"
+      label="发票总金额"
       >
       </el-table-column>
       <el-table-column  align="center" 
       prop="pay_amount"
-      label="赔付总金额（元）"
+      label="赔付总金额"
       >
     </el-table-column>
     <el-table-column  align="center" 
@@ -70,7 +70,7 @@
        </label>
        </template>
         <template   v-else>
-      <el-button plain @click="showDetail(scope.$index, scope.row)"> 查看明细</el-button>
+      <el-button plain @click="showDetail(scope.$index, scope.row)">{{scope.row.showOrHide}}</el-button>
         </template>
        </template>
     
@@ -98,6 +98,13 @@
 
 
   </el-table>
+  <div style="text-align: center;margin-top: 30px;">
+  <el-pagination
+    layout="prev, pager, next"
+    :total="total"
+     @current-change="current_change">
+  </el-pagination>
+   </div>
   </div>
 </template>
 <script>
@@ -122,7 +129,10 @@ export default {
 
         },
         isTure:false,
-        expands:[]
+        expands:[],
+        pagesize:10,
+        currentPage:1
+       
         
         
        
@@ -130,6 +140,9 @@ export default {
   },
 
   computed:{
+       total(){
+        return this.$store.state.claim.total
+      },
       tableData(){
           return this.$store.state.claim.tableData
           },
@@ -164,10 +177,16 @@ export default {
       },
       showDetail(index, row) {
          if (this.expands.indexOf(row.id) < 0) {
+                    this.tableData.map(item=>{
+                      item.showOrHide="查看明细"
+                    })
+                    row.showOrHide="收起明细"
                     this.expands = []
                     this.expands.push(row.id);
                 } else {
                     this.expands=[]
+                    row.showOrHide="查看明细"
+                  
                 }
         //console.log(row.id);
         //console.log(this.expands.indexOf(row.id));
@@ -178,6 +197,9 @@ export default {
   
        filterTag(value, row) {
         return row.status === value;
+      },
+       current_change:function(currentPage){
+        this.currentPage = currentPage;
       },
       /*
       renderHeader (h,{column}) { // h即为cerateElement的简写，具体可看vue官方文档

@@ -8,7 +8,7 @@ const family = {
         detailData:[] ,
         start:[],
         end:[]
-            
+         
     },
 
     mutations: {
@@ -21,7 +21,7 @@ const family = {
             let detailDataItem=[] ;
             tableDataItem.push({key: '姓名',value:item.personSecurityInfoResponse.name})
             tableDataItem.push({key: '性别',value:item.personSecurityInfoResponse.sexName})
-            tableDataItem.push({key: '出生日期',value:item.personSecurityInfoResponse.birthDate})
+            tableDataItem.push({key: '出生日期',value:parseTime(item.personSecurityInfoResponse.birthDate)})
             tableDataItem.push({key: '身份证件',value:item.personSecurityInfoResponse.idName+' |  '+ item.personSecurityInfoResponse.idNumber})
             tableDataItem.push({key: '手机号码',value:item.personSecurityInfoResponse.mobile})
             tableDataItem.push({key: '电子邮箱',value:item.personSecurityInfoResponse.email})

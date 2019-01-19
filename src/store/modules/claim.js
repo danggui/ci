@@ -4,7 +4,8 @@ const claim = {
     state: {
         tableData:[],
         claimLog:[],
-        isDraft:[]
+        isDraft:[],
+        total:0
 
     },
     mutations: {
@@ -12,6 +13,7 @@ const claim = {
             state.tableData=[]
             state.claimLog=[]
             state.isDraft=[]
+            state.total=data.length
             data.forEach((item,index)=>{
                 let logItem=[] ;
                 let detail={};
@@ -49,13 +51,14 @@ const claim = {
                     code:item.claimStatus,
                     type:item.type,
                     id:item.id,
-                    detail:detail    
+                    detail:detail,
+                    showOrHide:"查看明细"   
                 })
                 state.isDraft.push(item.type==3?true:false)
                 item.claimStatusLogs.forEach((item2,index)=>{
                     logItem.push({
                         time:parseTime(item2.createdDate),
-                        comment:item2.claimChangeComment
+                        comment:item2.claimStatusName
                     })
                 })
                 state.claimLog.push(logItem)

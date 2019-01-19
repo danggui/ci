@@ -21,12 +21,12 @@
  </div>
  <template v-if="isOutpatient==1">
  <div class="apply-qr"  v-for="(item,index) in label1"  :key="index" >
-      <q-r  :label="item.value"  :must="item.must" :type="type1[index]" :list="fileList1[index]" :code="code[0]" :id="insuredId"/>      
+      <q-r  :label="item.value"  :must="item.must" :type="type1[index]" :list="fileList1[index]" :code="code[0]"  :id="insuredId"/>      
  </div>
  </template>
   <template v-else>
   <div class="apply-qr"  v-for="(item,index) in label2"  :key="index" >
-      <q-r  :label="item.value"  :must="item.must" :type="type2[index]"  :list="fileList2[index]" :code="code[1]"  :id="insuredId"/>      
+      <q-r  :label="item.value"  :must="item.must" :type="type2[index]"  :list="fileList2[index]" :code="code[1]" :id="insuredId"  />      
  </div>
   </template>
  <div class="apply-upload">
@@ -102,27 +102,25 @@ export default {
           return this.$store.state.apply.isUpdate
       },
       insuredId(){
-          return this.$store.state.apply.info[this.num].insuredId
+          return this.$store.state.apply.insuredId
+      },
+      info(){
+          return this.$store.state.apply.info
       }
      
   },
-  mounted(){
-      //this.getIntervalList();
-      //setInterval(this.getIntervalList, 500000);
-  },
+ 
   methods:{
     doctorTime(time){
         this.defaultTime=time
     },
     personNum(item){
-       this.num=item
-        this.$store.dispatch('getImageList',{id:this.insuredId,code:115,kind:0})
-        this.$store.dispatch('getImageList',{id:this.insuredId,code:116,kind:0})
+        Storage.set("isSelect",1)
+        this.num=item
+        this.$store.dispatch('getImageList',{id:this.info[item].insuredId,code:115,kind:0,num:item})
+        this.$store.dispatch('getImageList',{id:this.info[item].insuredId,code:116,kind:0,num:item})
     },
-     getIntervalList(){
-         this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
-         this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
-     },
+    
      chooseDepart(val){
          if(val==115){
           this.isOutpatient=1
@@ -145,7 +143,7 @@ export default {
         }); }
         const data={
             'personId':getPerson(),
-            "insuredId":this.insuredId,
+            "insuredId":this.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":this.defaultTime,
@@ -153,13 +151,14 @@ export default {
             "personSecurityId":this.$store.state.apply.info[this.num].personSecurityId,
             "tenantId":this.$store.state.apply.info[this.num].tenantId
         }
-        console.log(data)
+       
         this.$store.dispatch("saveMyApply",{data:data,status:118})
+        
         },
         submitDraft(){
         const data={
             'personId':getPerson(),
-            "insuredId":this.insuredId,
+            "insuredId":this.info[this.num].insuredId,
             "chargeType":Storage.get("code")||115,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
@@ -174,8 +173,8 @@ export default {
             let id= this.$store.state.apply.edit_id
             const data={
             'personId':11,
-            "insuredId":this.insuredId,
-            "chargeType":Storage.get("code")||115,
+            "insuredId":id,
+            "chargeType":this.$store.state.apply.code,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
             "claimStatus":118,
@@ -188,8 +187,8 @@ export default {
             let id= this.$store.state.apply.edit_id
             const data={
             'personId':11,
-            "insuredId":this.insuredId,
-            "chargeType":Storage.get("code")||115,
+            "insuredId":id,
+            "chargeType":this.$store.state.apply.code,
             "submitWay":"PC",
             "doctorDate":new Date(this.defaultTime),
             "claimStatus":117,

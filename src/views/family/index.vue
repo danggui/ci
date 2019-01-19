@@ -17,14 +17,7 @@ export default {
   components:{TableList,FamilyCard},
   data(){
     return {
-      label:[{
-          status:"生效中",isActive:true
-        },{
-          status:"待生效",isActive:false
-        },
-        {
-          status:"已生效",isActive:false
-        }]
+      
     }
   },
   computed:{

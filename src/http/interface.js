@@ -42,7 +42,7 @@ export const showEditInfo = (id) => {
 }
 export const uploadImage = (data,type,id) => {    
     return axios({
-        url: `/upload/imageUpload`,
+        url: `https://dev-swagger.ecosaas.com/ecosaasci/api/ecosaas/ci/upload/imageUpload`,
         method: 'post',
         data
     })

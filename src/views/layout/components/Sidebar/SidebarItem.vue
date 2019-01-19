@@ -125,7 +125,6 @@ export default {
       return 
       }
   
-  
       if(Storage.get("isEditting")==1){
       this.$confirm('编辑内容未保存，是否离开？','提示',{
         confirmButtonText: '确定',
