@@ -13,6 +13,11 @@ const family = {
 
     mutations: {
         GET_FAMILY_INFO: (state, data) => {
+            if(!data){
+                state.tableData=[];
+                state.detailData=[];
+                state.options=[]
+            }else{
            state.tableData=[];
            state.detailData=[];
            state.options=data;
@@ -41,6 +46,7 @@ const family = {
             state.end.push(parseTime(item.personSecurityInfoResponse.insuredDate))
            })
           }
+        }
     },
   
     actions: {
@@ -51,9 +57,6 @@ const family = {
                  console.log(error);
              })
         }
-       
-        
-
     }
   }
   

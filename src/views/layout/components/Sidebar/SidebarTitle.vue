@@ -1,6 +1,6 @@
 <template>
   <div class="company_title">
-     <img :src="icon" />
+      icon: require('@/assets/images/logo.png')
   </div>
 </template>
 <script>

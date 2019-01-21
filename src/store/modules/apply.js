@@ -82,7 +82,6 @@ const apply = {
            
           },
           SET_EDIT_INFO: (state, data) => {
-             console.log(data)
            Storage.set("isEditting",1)
            Storage.set("isSelect",1)
            const code=data.code
@@ -196,7 +195,6 @@ const apply = {
            const code=data.code
            const res=data.data
            const num=data.num
-           console.log(data)
            state.insuredId=state.info[num].insuredId
            let pic1= []
            let pic2= []
@@ -326,7 +324,7 @@ const apply = {
             saveApply(data.data).then((response) => {
                 commit('SAVE_APPLY', {res:response,status:data.status})
                 dispatch('showMyClaim',getPerson())
-                console.log(getPerson())
+
              }).catch((error) => {
                  console.log(error);
              })
@@ -336,7 +334,6 @@ const apply = {
             saveEdit(data.data,data.id).then((response) => {
                 commit('SAVE_EDIT', {res:response.data,code:data.code})
                 dispatch('showMyClaim',getPerson())
-                console.log(getPerson())
              }).catch((error) => {
                  console.log(error);
              })

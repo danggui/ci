@@ -11,7 +11,7 @@
      </div>
      <div class="family-label" v-if="family">
       <div class="family-status">
-        <family-card v-for="(item,index) in label" :status="item.status" :key="index" :index="index" :isActive="item.isActive" @labelAction="changeStatus" :type="index+1"/>
+        <family-card v-for="(item,index) in label" :status="item.status" :key="index" :index="index" :isActive="item.isActive" @labelAction="changeStatus" :type="item.index"/>
       </div>
      </div>
      <el-card class="box-card app_content">
@@ -39,12 +39,12 @@ export default {
   data(){
     return {
       label:[{
-          status:"生效中",isActive:true
+          status:"生效中",isActive:true,index:1
         },{
-          status:"待生效",isActive:false
+          status:"待生效",isActive:false,index:0
         },
         {
-          status:"已失效",isActive:false
+          status:"已失效",isActive:false,index:2
         }]
     } 
   },

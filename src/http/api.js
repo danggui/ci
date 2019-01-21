@@ -99,6 +99,7 @@ export default function $axios(options) {
       },
       err => {
         Loading.service().close();
+        console.log(err)
         if (err && err.response) {
           switch (err.response.status) {
             case 400:

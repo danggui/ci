@@ -15,7 +15,7 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
 
-  console.log(`lalalalalalalalal${env}`)
+
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {

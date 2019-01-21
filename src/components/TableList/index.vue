@@ -123,8 +123,17 @@ export default {
     }
   },
   methods:{
-      beforeAvatarUpload(res, file){
-    
+      beforeAvatarUpload(file){
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt3M = file.size / 1024 /1024  < 1;
+        if (!(isJPG||isPNG)) {
+          this.$message.error('上传图片只能是 JPG 或者 PNG 格式');
+        }
+        if (!isLt3M) {
+          this.$message.error('图片大小不能超过 3MB');
+        }
+        return (isJPG||isPNG) && isLt3M;
       },
       handleAvatarSuccess(res, file) {
        

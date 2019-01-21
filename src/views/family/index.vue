@@ -1,5 +1,5 @@
 <template>
-  <div class="family-container ">
+  <div v-if="options.length" class="family-container ">
    <div class="family-form" v-for="(item,index) in options" :key="index">
       <div class="form-title"><svg-icon class-name="arrow-icon"  icon-class="double-arrow" />保单{{index+1}}</div>
       <div class="form-table">
@@ -7,6 +7,13 @@
         <table-list :tableData="detailData[index]"  :tableStyle="{ width:'100%'}" cellspacing="0" :s_showByRow="2" :start="start[index]" :end="end[index]" :father="$route.name"/>
       </div>
    </div>
+  </div>
+  <div v-else class="family-container-no ">
+         <img :src="default_back">
+         <svg-icon icon-class="box"  class-name="middle-size" />
+          <div class="des_null" >
+            暂无符合条件的理赔申请
+          </div>
   </div>
 </template>
 <script>
@@ -17,7 +24,7 @@ export default {
   components:{TableList,FamilyCard},
   data(){
     return {
-      
+       default_back: require('@/assets/images/default.png') 
     }
   },
   computed:{
@@ -73,6 +80,28 @@ export default {
 
   .form-table{
     margin: 10px 0 30px;
+  }
+}
+.family-container-no{
+  margin: 130px;
+  text-align: center;
+  position: relative;
+  svg{
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    top: 20px;
+    color: #CCCCCC
+  }
+   .middle-size{
+      width: 40px;
+      height: 40px;
+    }
+  .des_null{
+    margin-top: 20px;
+    color: #666666;
+    font-size: 14px;
+   
   }
 }
 
