@@ -27,7 +27,6 @@ Vue.use(Element, {
 Vue.use(Element)
 Vue.use(api)
 
-
 new Vue({
   el: '#app',
   router,

@@ -49,7 +49,6 @@ export default function $axios(options) {
       error => {
         // 请求错误时
         Message.error({message: '请求超时!'});
-        console.log('request:', error)
         // 1. 判断请求超时
         if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
           console.log('timeout请求超时')

@@ -1,6 +1,6 @@
 <template>
    <section class="app-main">
-     <div v-if="material&&words" class="apply_notice">
+     <div v-if="!material&&words" class="apply_notice">
         <el-badge is-dot class="item red-item"><svg-icon class-name="main-icon" icon-class="biandongtongzhi" /></el-badge>你的理赔缺少申请材料，请点击
         <label @click="handleEdit">
             【这里】 

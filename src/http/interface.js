@@ -40,9 +40,9 @@ export const showEditInfo = (id) => {
         method: 'get'
     })
 }
-export const uploadImage = (data,type,id) => {    
+export const uploadImage = (data) => {  
     return axios({
-        url: `https://dev-swagger.ecosaas.com/ecosaasci/api/ecosaas/ci/upload/imageUpload`,
+        url: `/upload/imageUpload`,
         method: 'post',
         data
     })
@@ -79,12 +79,10 @@ export const  saveApply = (data) => {
 }
 
 export const  saveEdit = (data,id) => {  
-
     return axios({
         url: `/claim/claim/${id}`,
         method: 'put',
         data:data
-       
     })
 }
 
@@ -95,7 +93,6 @@ export const showFamily =(personId,type) =>{
         {
             url:`/personSecurity/familSecurityDetail/${personId}/${type}`,
             method:'get' ,
-            
         }
     )
 }

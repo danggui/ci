@@ -146,7 +146,7 @@ export default {
      upload(params) {
       const formData = new FormData()
       formData.append('file',params.file)
-       console.log(params);
+       //console.log(formData);
       formData.append('insuredId',params.data.personId)
       formData.append('accessoryType',params.data.accessoryType)
       this.$store.dispatch("uploadResourseImage",{data:formData,insuredId:params.data.personId,accessoryType:params.data.accessoryType})
