@@ -1,6 +1,5 @@
 
 import {showInfo,showEditInfo,uploadImage,updateImage,deleteImage,saveApply,saveEdit} from '@/http/interface'
-import VueRouter from 'vue-router';
 import { getPerson } from '@/utils/auth'
 import router from '../../router';
 function myMap() {
@@ -323,7 +322,7 @@ const apply = {
         saveMyApply({commit, dispatch},data){
             saveApply(data.data).then((response) => {
                 commit('SAVE_APPLY', {res:response,status:data.status})
-                dispatch('showMyClaim',getPerson())
+                dispatch('showApply',getPerson())
 
              }).catch((error) => {
                  console.log(error);
@@ -333,7 +332,7 @@ const apply = {
           saveMyEdit({commit, dispatch},data){
             saveEdit(data.data,data.id).then((response) => {
                 commit('SAVE_EDIT', {res:response.data,code:data.code})
-                dispatch('showMyClaim',getPerson())
+                dispatch('showApply',getPerson())
              }).catch((error) => {
                  console.log(error);
              })
