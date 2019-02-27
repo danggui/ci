@@ -120,8 +120,9 @@ export default {
               message: `请补充材料`
             });  
       }
-       
       });
+      //临时处理，产品需求不明确
+      this.$store.dispatch('showApply',getPerson())
       return 
       }
   
@@ -136,6 +137,7 @@ export default {
            }  ).catch( ()=> {  })
         }
         else{
+
           this.$store.dispatch('showApply',getPerson())
          // this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
           //this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
@@ -149,6 +151,7 @@ export default {
          this.$store.dispatch('downloadInfo',getPerson())
       }
        if(to=="/claim"){
+         console.log(1232131)
          this.$store.dispatch('showMyClaim',getPerson())
       }
         if(to=="/resource"){

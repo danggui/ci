@@ -64,6 +64,10 @@ export default {
     update: {
       type: Boolean,
       default: false
+    },
+    options:{
+      type: Array,
+      default: []
     }
     },
     data() {
@@ -110,9 +114,7 @@ export default {
                         this.$store.state.apply.time = newValue;
                     }
          },
-        options(){
-            return this.$store.state.apply.options
-        },
+        
         identify(){
             return  this.$store.state.apply.identify
         },

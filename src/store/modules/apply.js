@@ -1,5 +1,5 @@
 
-import {showInfo,showEditInfo,uploadImage,updateImage,deleteImage,saveApply,saveEdit} from '@/http/interface'
+import {showInfo,showEditInfo,uploadImage,updateImage,deleteImage,saveApply,saveEdit,choosePeople} from '@/http/interface'
 import { getPerson } from '@/utils/auth'
 import router from '../../router';
 function myMap() {
@@ -36,20 +36,21 @@ const apply = {
         isUpdate:false,
         time:'',
         insuredId:'',
-        code:''
+        code:'',
+        supply:""
        
     },
 
     mutations: {
-        SET_INFO: (state, res) => {
-            Storage.set("isEditting",1),
+        SHOW_PEOPLE:(state,data)=> {
+            Storage.set("isEditting",1)
             Storage.remove("isSelect"),
+            state.options=[]
             state.value ='',
-            state.time ='',
+            //state.time ='',
             state.pic_list1=[],
             state.pic_list2=[],
             state.isUpdate=false,
-            state.options=[],
             state.identify=[],
             state.mobile=[],
             state.email=[],
@@ -57,7 +58,7 @@ const apply = {
             state.card_num=[],
             state.card_holder=[],
             state.info=[],
-            res.data.forEach((item, index)=> {
+            data.forEach((item,index)=>{
             state.identify=state.identify.concat(item.idNumber)
             state.mobile=state.mobile.concat(item.mobile)
             state.email=state.email.concat(item.email)
@@ -70,13 +71,35 @@ const apply = {
                 personSecurityId:item.id,
                 tenantId:item.tenantId
                 })
-            state.options.push(
-                Object.assign({},
-                    {value: index },
-                    {label:item.name}
-                ))
+                state.options.push(
+                    Object.assign({},
+                        {value: index },
+                        {label:item.name},
+                        {id:item.personId}
+                    ))
             })
            
+        },
+
+        //
+        SET_INFO: (state, res) => {
+            Storage.set("isEditting",1),
+            Storage.remove("isSelect"),
+            state.isUpdate=false,
+            state.value ='',
+            state.time ='',
+            state.pic_list1=[],
+            state.pic_list2=[],
+            state.isUpdate=false,
+            state.options=[],
+            state.identify=[],
+            state.mobile=[],
+            state.email=[],
+            state.bank_name=[],
+            state.card_num=[],
+            state.card_holder=[],
+            state.info=[]
+          
            //提交前获得数据
            
           },
@@ -87,7 +110,7 @@ const apply = {
            const res=data.res
            const img=data.img
             state.code= code
-            state.insuredId=data.id
+            state.insuredId=res.personId
             state.edit_id=data.id
             state.isUpdate=true,
             state.options=[],
@@ -100,6 +123,7 @@ const apply = {
             state.info=[],
             state.pic_list1=[],
             state.pic_list2=[],
+            state.supply=data.supply,
             state.identify.push(res.idNumber)
             state.mobile.push(res.mobile)
             state.email.push(res.email)
@@ -253,8 +277,9 @@ const apply = {
             state.options=[]
             state.pic_list1=[]
             state.pic_list2=[]
+            state.isUpdate=false,
             Storage.set("isEditting",0)
-            router.push("./claim")
+            router.push("/claim")
             
         },
         SAVE_EDIT:(state,data)=>{
@@ -269,8 +294,9 @@ const apply = {
             state.options=[]
             state.pic_list1=[]
             state.pic_list2=[]
+            state.isUpdate=false,
             Storage.set("isEditting",0)
-            router.push("./claim")
+            router.push("/claim")
            
         }
     },
@@ -286,7 +312,7 @@ const apply = {
           //获取修改信息及图片
           showEditApply({ commit }, id) {
             showEditInfo(id).then( (response) => {
-               commit('SET_EDIT_INFO', {res:response.data.personSecurity,img:response.data.claimImages,time:response.data.doctorDate,code:response.data.chargeType,id:response.data.id})
+               commit('SET_EDIT_INFO', {res:response.data.personSecurity,img:response.data.claimImages,time:response.data.doctorDate,code:response.data.chargeType,id:response.data.id,supply:response.data.supplementaryNote})
             }).catch((error) => {
                 console.log(error);
             })
@@ -300,6 +326,14 @@ const apply = {
                  console.log(error);
              })
            
+          },
+          //初始化员工
+          showPeople({commit},data){
+            choosePeople(data).then( (response) => {
+                commit('SHOW_PEOPLE',response.data)
+             }).catch((error) => {
+                 console.log(error);
+             })
           },
            //初始化图片列表
           getImageList({commit},data){

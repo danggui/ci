@@ -47,6 +47,17 @@ export const uploadImage = (data) => {
         data
     })
 }
+
+
+export const choosePeople = (data) => {  
+    return axios({
+        url: `/personSecurity/effectivePersonSecuritys/${data.id}/${data.date}/${data.type}`,
+        method: 'get',
+       
+    })
+}
+
+
 /*
 export const uploadImage = (data,type,id) => {    
     return axios({
@@ -117,6 +128,16 @@ export const deleteClaim =(claimId) =>{
         }
     )
 }
+export const getClaimDetail =(id) =>{
+    return axios(
+        {
+            url:`/claim/claimInvoiceAndImages/${id}`,
+            method:'get' ,
+            
+        }
+    )
+}
+
 //resource
 export const showResource =(personId) =>{
     return axios(

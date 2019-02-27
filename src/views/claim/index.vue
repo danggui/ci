@@ -70,7 +70,10 @@
        </label>
        </template>
         <template   v-else>
-      <el-button plain @click="showDetail(scope.$index, scope.row)">{{scope.row.showOrHide}}</el-button>
+      <div  @click="showDetail(scope.$index, scope.row)">
+        <svg-icon icon-class="open-eye" class-name="eye" v-if="scope.row.showOrHide"/>
+        <svg-icon icon-class="close-eye" class-name="eye" v-if="!scope.row.showOrHide"/>
+      </div>
         </template>
        </template>
     
@@ -94,9 +97,6 @@
       </template>
      
     </el-table-column>
- 
-
-
   </el-table>
   <div style="text-align: center;margin-top: 30px;">
   <el-pagination
@@ -110,13 +110,14 @@
 <script>
 
 import LabelLine from "@/components/LabelLine"
+import DetailInfo from "@/components/DetailInfo"
 import FileList from "@/components/FileList"
 import Detail from "./Detail"
 
 
 export default {
   name: 'Claim',
-  components:{LabelLine,FileList,Detail},
+  components:{LabelLine,FileList,DetailInfo,Detail},
   data() {
    return{
         styleObj:{
@@ -131,7 +132,8 @@ export default {
         isTure:false,
         expands:[],
         pagesize:10,
-        currentPage:1
+        currentPage:1,
+        show:true
        
         
         
@@ -167,7 +169,7 @@ export default {
   },
    methods: {
       handleEdit(index, row) {
-       this.$router.push({path: '/apply'});
+       this.$router.push('/apply');
        this.$store.dispatch('showEditApply',row.id);
 
       },
@@ -178,16 +180,19 @@ export default {
       showDetail(index, row) {
          if (this.expands.indexOf(row.id) < 0) {
                     this.tableData.map(item=>{
-                      item.showOrHide="查看明细"
+                      item.showOrHide=true
                     })
-                    row.showOrHide="收起明细"
+                    this.$store.dispatch('getClaimDetail',row.id);
+                    row.showOrHide=false
                     this.expands = []
                     this.expands.push(row.id);
                 } else {
                     this.expands=[]
-                    row.showOrHide="查看明细"
+                    row.showOrHide=true
                   
                 }
+                this.show=!this.show
+         
         //console.log(row.id);
         //console.log(this.expands.indexOf(row.id));
       },
@@ -246,6 +251,9 @@ export default {
         line-height: 20px;
         font-size: 12px;
         padding: 0
+    }
+    .eye{
+      width: 20px;
     }
 }
 

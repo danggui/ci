@@ -1,4 +1,4 @@
-import {showClaim,deleteClaim} from '@/http/interface'
+import {showClaim,deleteClaim,getClaimDetail} from '@/http/interface'
 import { parseTime } from '@/utils'
 const claim = {
     state: {
@@ -19,27 +19,7 @@ const claim = {
                 let detail={};
                 let image=[];
                 let des=[];
-                //存在详情
-                if(item.accessorys){
-                    item.accessorys.forEach((item2,index2)=>{
-                        image.push(
-                           item2.thumbPath
-                        )
-                    })
-                }
-               
-                if(item.claimInvoices){
-                    item.claimInvoices.forEach((item2,index2)=>{
-                        des.push({name:item2.invoiceCode,
-                            value:item2.invoiceValue,
-                            third_pay:item2.thirdPay,
-                            apply_amount:item2.lisuanAmount,
-                            compensation:item2.compensationAmount,
-                            reson:item2.compensationNote})
-                    })
-                }
                 detail=Object.assign(detail,{image:image},{des:des})
-                
                 state.tableData.push({
                     data: parseTime(item.createdDate),
                     data2: parseTime(item.doctorDate),
@@ -52,7 +32,8 @@ const claim = {
                     type:item.type,
                     id:item.id,
                     detail:detail,
-                    showOrHide:"查看明细"   
+                    showOrHide:true  ,
+                    supply:item.supplementaryNote 
                 })
                 state.isDraft.push(item.type==3?true:false)
                 item.claimStatusLogs.forEach((item2,index)=>{
@@ -66,7 +47,35 @@ const claim = {
         },
         DELETE_CLAIM:(state, data) => {
             state.tableData.splice(data,1)
-        }
+        },
+        SHOW_INVOICE:(state, data) => {
+           
+            state.tableData.map((item,index)=>{
+                 if(item.id==data.id){
+                    item.detail.des=[]
+                    item.detail.image=[]
+                data.res.claimInvoices.forEach(
+                   (item2,index2)=>{
+                         item.detail.des.push(
+                            {   
+                                name:item2.invoiceCode,
+                                value:item2.invoiceValue,
+                                third_pay:item2.thirdPay,
+                                apply_amount:item2.lisuanAmount,
+                                compensation:item2.compensationAmount,
+                                reson:item2.compensationNote}
+                         )
+                      }
+                )
+                data.res.accessorys.forEach(
+                    (item2,index2)=>{
+                        item.detail.image.push(item2.thumbPath)
+                    }
+                )
+                 }
+
+            })
+        },
            
     },
   
@@ -82,6 +91,14 @@ const claim = {
         deleteMyClaim({commit},data) {
             deleteClaim(data.id).then((response) => {
                commit('DELETE_CLAIM', data.index)
+            }).catch((error) => {
+                console.log(error);
+            })
+
+          },
+          getClaimDetail({commit},data) {
+            getClaimDetail(data).then((response) => {
+               commit('SHOW_INVOICE', {res:response.data,id:data})
             }).catch((error) => {
                 console.log(error);
             })

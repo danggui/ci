@@ -32,9 +32,9 @@ const family = {
             tableDataItem.push({key: '电子邮箱',value:item.personSecurityInfoResponse.email})
             tableDataItem.push({key: '银行卡',value:item.personSecurityInfoResponse.bankName+" | "+item.personSecurityInfoResponse.bankAccount+" | "+item.personSecurityInfoResponse.accountName})
             
-            item.planInsuranceKinds.forEach((item2,index2)=>{
+            item.planInsuranceKindResponses.forEach((item2,index2)=>{
                detailDataItem.push({
-                    type:item2.insuranceKindId,
+                    type:item2.insuranceKindName,
                     scope:item2.guaranteeComment,
                     amount:item2.amountLimit
                 })

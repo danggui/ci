@@ -14,10 +14,11 @@
      <label-line  :title="title" :message="message"></label-line>
  </div>
  <div class="apply-card">
-     <card :update="isUpdate" :time="defaultTime" :num="num" @getTime="doctorTime"  @getPerson="personNum"/>
+     <card :update="isUpdate" :time="defaultTime" :options="choice" :num="num" @getTime="doctorTime"  @getPerson="personNum"/>
  </div>
  <div class="apply-label">
      <label-line  :title="title2" :message="photoMessage"></label-line>
+     <DetailInfo v-if="isUpdate" :content="content" />
  </div>
  <template v-if="isOutpatient==1">
  <div class="apply-qr"  v-for="(item,index) in label1"  :key="index" >
@@ -47,13 +48,15 @@
 <script>
 
 import LabelLine from "@/components/LabelLine"
+import DetailInfo from "@/components/DetailInfo"
 import QR from "@/components/QR"
 import Card from "@/components/Card"
 import Storage from "@/utils/storage"
 import {getPerson} from "@/utils/auth"
+import { parseTime } from '@/utils'
 export default {
   name: 'Apply',
-  components:{LabelLine,Card,QR},
+  components:{LabelLine,Card,QR,DetailInfo},
   data() {
     return {
       options:[
@@ -106,19 +109,28 @@ export default {
       },
       info(){
           return this.$store.state.apply.info
-      }
+      },
+      choice(){
+            return this.$store.state.apply.options
+        },
+      content(){
+            return this.$store.state.apply.supply
+     },
      
   },
  
   methods:{
     doctorTime(time){
-        this.defaultTime=time
+       this.defaultTime=time
+       this.$store.dispatch('showPeople',{id:getPerson(),date:parseTime(time),type:Storage.get("code")?Storage.get("code"):115})
+      
+        
     },
     personNum(item){
         Storage.set("isSelect",1)
         this.num=item
-        this.$store.dispatch('getImageList',{id:this.info[item].insuredId,code:115,kind:0,num:item})
-        this.$store.dispatch('getImageList',{id:this.info[item].insuredId,code:116,kind:0,num:item})
+        this.$store.dispatch('getImageList',{id:this.choice[item].id,code:115,kind:0,num:item})
+        this.$store.dispatch('getImageList',{id:this.choice[item].id,code:116,kind:0,num:item})
     },
     
      chooseDepart(val){
@@ -172,7 +184,7 @@ export default {
         editForm(){
             let id= this.$store.state.apply.edit_id
             const data={
-            'personId':11,
+            'personId':getPerson(),
             "insuredId":id,
             "chargeType":this.$store.state.apply.code,
             "submitWay":"PC",
@@ -186,7 +198,7 @@ export default {
         editDraft(){
             let id= this.$store.state.apply.edit_id
             const data={
-            'personId':11,
+            'personId':getPerson(),
             "insuredId":id,
             "chargeType":this.$store.state.apply.code,
             "submitWay":"PC",
