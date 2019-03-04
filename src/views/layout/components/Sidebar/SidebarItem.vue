@@ -122,7 +122,7 @@ export default {
       }
       });
       //临时处理，产品需求不明确
-      this.$store.dispatch('showApply',getPerson())
+      this.$router.push("/resource")
       return 
       }
   

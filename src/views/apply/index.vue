@@ -63,7 +63,6 @@ export default {
           {value:115,label:'门急诊'},
           {value:116,label:'住院'} 
           ],
-           department: Storage.get("department")||'门急诊',
            isOutpatient:Storage.get("isOutpatient")||1,
            title:'就诊信息',
            message:'',
@@ -116,6 +115,14 @@ export default {
       content(){
             return this.$store.state.apply.supply
      },
+     department:{
+         get(){
+             return this.$store.state.apply.code==116?'住院':'门急诊';
+         },
+         set(val){
+             this.$store.state.apply.code = val
+         }
+        },
      
   },
  
@@ -140,7 +147,7 @@ export default {
           Storage.set("department",'门急诊') 
           Storage.set("code",115) 
          }
-          else if(val==116){
+         else if(val==116){
               this.isOutpatient=2
               Storage.set("isOutpatient",2)
               Storage.set("department",'住院')

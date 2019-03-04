@@ -89,13 +89,12 @@
           <ul class="instruction">
              <li v-for="(item,index) in props.row.detail.des" :key="index">
                  <div>发票： {{item.name}}</div>
-                 <div>发票金额：{{item.value}}|第三方支付：{{item.third_pay}} |理赔金额：{{item.apply_amount}} |赔付金额：{{item.compensation}}</div>
+                 <div>发票金额：{{item.value.toFixed(2)}} | 第三方支付：{{item.third_pay.toFixed(2)}} | 理赔金额：{{item.apply_amount.toFixed(2)}} | 赔付金额：{{item.compensation.toFixed(2)}}</div>
                  <div>拒赔原因：  {{item.reson}}</div>
              </li>
          </ul>
         </el-form>
       </template>
-     
     </el-table-column>
   </el-table>
   <div style="text-align: center;margin-top: 30px;">

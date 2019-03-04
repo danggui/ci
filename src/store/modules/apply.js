@@ -36,7 +36,7 @@ const apply = {
         isUpdate:false,
         time:'',
         insuredId:'',
-        code:'',
+        code:115,
         supply:""
        
     },
@@ -239,22 +239,23 @@ const apply = {
             pic3= res.costs
             pic4=res.inspects
             pic5= res.others
-            pic6= res.summarys       
+                
             state.pic_list1.push(pic1)
             state.pic_list1.push(pic2)
             state.pic_list1.push(pic3)
             state.pic_list1.push(pic4)
             state.pic_list1.push(pic5)
-            state.pic_list1.push(pic6)
+           
            }
            else{
             state.pic_list2=[]
             pic7=res.outpatients
             pic8=res.medicals
             pic9= res.costs
-            pic10=res.inspects
-            pic11= res.others
-            pic12= res.summarys  
+            pic10= res.summarys  
+            pic11=res.inspects
+            pic12= res.others
+           
 
             state.pic_list2.push(pic7)
             state.pic_list2.push(pic8)
@@ -277,7 +278,8 @@ const apply = {
             state.options=[]
             state.pic_list1=[]
             state.pic_list2=[]
-            state.isUpdate=false,
+            state.isUpdate=false
+            state.code=115
             Storage.set("isEditting",0)
             router.push("/claim")
             
@@ -294,7 +296,8 @@ const apply = {
             state.options=[]
             state.pic_list1=[]
             state.pic_list2=[]
-            state.isUpdate=false,
+            state.isUpdate=false
+            state.code=115
             Storage.set("isEditting",0)
             router.push("/claim")
            

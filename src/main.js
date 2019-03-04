@@ -32,6 +32,7 @@ new Vue({
   router,
   store,
   i18n,
+  mounted(){window.vue = this},
   render: h => h(App)
 })
 
