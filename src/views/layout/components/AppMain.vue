@@ -83,7 +83,7 @@ export default {
     },
     handleEdit(){
         this.$router.push({path: '/claim'});
-          this.$store.dispatch('showMyClaim',1)
+        this.$store.dispatch('showMyClaim',1)
     }
   }
  

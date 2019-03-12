@@ -4,17 +4,20 @@ import qs from 'qs';
 import {Message,Loading} from 'element-ui'
 import Cookies from "js-cookie";
 import router from '@/router'
+import store from '@/store'
 const ERR_OK = "0";
 
-
 // 使用vuex做全局loading时使用
-// import store from '@/store'
 
 export default function $axios(options) {
+  const headers = {
+    'Authorization' : store.getters.token,
+    'TenantId':  1
+  }
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseURL,
-      headers: config.headers,
+      headers: headers,
       transformResponse: [function (data) {
       }]
     })

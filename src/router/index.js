@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
+
 /* Layout */
 import Layout from '@/views/layout/Layout'
 import { MessageBox } from 'element-ui';
@@ -114,15 +115,11 @@ export const constantRouterMap = [
   export const mobilePage=[
     {
       path: '/mobile',
-      component: Layout,
-      children: [
-        {
-          path: '/mobile',
-          component: () => import('@/views/mobile/index'),
-          name: 'Phote',
-          meta: { title: 'photo', icon: 'photo', noCache: true,words:false }
-        }
-      ]
+      components: {
+        mobile: () => import('@/views/mobile/index')
+      },
+      name: 'Phote',
+          meta: { title: 'photo', icon: 'photo', noCache: true,words:false },
     }
   ]
 
@@ -132,25 +129,5 @@ const router = new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap.concat(mobilePage)
 })
-router.beforeEach((to, from, next) => {
- /*
-  if (to.path=="/apply"){
-    const status = router.app.$store.state.appMain.status
-    if(!status){
-      next({path:'/'})
-    }
-  }
-  */
-  if(Storage.get("isEditting")==1){
-  if(from.path == "/apply") {
-    MessageBox.confirm('编辑内容未保存，是否离开？','提示',{
-    confirmButtonText: '确定',
-    cancelButtonText: '取消', }).then(()=>{ next()}).catch( ()=>next(false) ) 
-  }else { 
-    next() //必须加
-    }
-  }else{
-    next()
-  }
-  })
+
 export default router 

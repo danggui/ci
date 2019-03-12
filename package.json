@@ -5,7 +5,7 @@
   "author": "elsa dou",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env dev",
+    "dev": "webpack-dev-server --inline --host 0.0.0.0 --progress --config build/webpack.dev.conf.js --env dev  ",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
@@ -26,6 +26,7 @@
     "element-ui": "^2.4.11",
     "js-cookie": "^2.2.0",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "qrcodejs2": "^0.0.2",
     "sass-loader": "^7.1.0",
     "screenfull": "^4.0.0",

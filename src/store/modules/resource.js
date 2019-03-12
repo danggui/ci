@@ -7,7 +7,8 @@ const resource = {
         personData:[],
         familyData:[],
         bankData:[],
-        idData:[]
+        idData:[],
+        mobile:""
     },
 
     mutations: {
@@ -99,8 +100,12 @@ const resource = {
                     }
                 })
             }
+        },
+        UPLOAD_MOBILE_IMAGE:(state,data)=>{
+          state.mobile=data.thumbPath
         }
     },
+    
   
     actions: {
         showAllResource({ commit }, id){
@@ -118,6 +123,14 @@ const resource = {
              })
            
           },
+          uploadMobileImage({commit},data){
+            uploadImage(data).then(
+                response => { commit('UPLOAD_MOBILE_IMAGE',response.data)}
+            ).catch((error) => {
+                 console.log(error);
+             })
+           
+          }
 
   
     }

@@ -110,8 +110,9 @@ export default {
     generateTitle,
     dispatchEvent(to){
       if(to=="/apply"){ 
+    this.$store.dispatch("checkStatus",getPerson())
     const status = this.$store.state.appMain.status
-    if(!status){
+    if(status!=1){
       this.$alert('首次申请，需完成全部证照上传', '提示', {
       confirmButtonText: '确定',
       callback: action => {
@@ -125,20 +126,18 @@ export default {
       this.$router.push("/resource")
       return 
       }
-  
       if(Storage.get("isEditting")==1){
       this.$confirm('编辑内容未保存，是否离开？','提示',{
         confirmButtonText: '确定',
         cancelButtonText: '取消',
          }).then(()=>{   
-          this.$store.dispatch('showApply',getPerson())
+         // this.$store.dispatch('showApply',getPerson())
           //this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
           //this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
            }  ).catch( ()=> {  })
         }
         else{
-
-          this.$store.dispatch('showApply',getPerson())
+          //this.$store.dispatch('showApply',getPerson())
          // this.$store.dispatch('getImageList',{id:getPerson(),code:115,kind:0})
           //this.$store.dispatch('getImageList',{id:getPerson(),code:116,kind:0})
         } 
@@ -151,7 +150,7 @@ export default {
          this.$store.dispatch('downloadInfo',getPerson())
       }
        if(to=="/claim"){
-         console.log(1232131)
+       
          this.$store.dispatch('showMyClaim',getPerson())
       }
         if(to=="/resource"){

@@ -10,6 +10,7 @@ import download from './modules/download'
 import apply from './modules/apply'
 import family from './modules/family'
 import claim from './modules/claim'
+import login from './modules/login'
 import resource from './modules/resource'
 import getters from './getters'
 
@@ -41,6 +42,7 @@ const store = new Vuex.Store({
     download,
     family,
     claim,
+    login,
     resource
   },
   getters

@@ -17,6 +17,7 @@ import './icons' // icon
 //import './errorLog' // error log
 import api from '@/http'
 import {setPerson} from '@/utils/auth.js'
+import './permission' // permission control
 Vue.config.productionTip = false
 /*
 Vue.use(Element, {

@@ -14,7 +14,7 @@
   :http-request="upload"
   >
   <i class="el-icon-plus"></i>
-  <vue-qr class="QRImage"  :text="config.value" :size="143" :margin="5"  @click.native.stop></vue-qr> 
+  <vue-qr class="QRImage" v-if="isSelect" :text="config.value" :size="143" :margin="5"  @click.native.stop></vue-qr> 
 </el-upload>
 <el-dialog :visible.sync="dialogVisible">
   <img width="100%" :src="dialogImageUrl" alt="">
@@ -37,16 +37,24 @@ export default {
         uploadUrl:'',
         dialogImageUrl: '',
         dialogVisible: false,
-        config: {
-          value: 'http://192.168.102.234:8080/#/mobile?1233294723',//显示的值、跳转的地址
-          logo:'',
-        }
-
+        
+        
       };
+    },
+    computed:{
+        config(){
+          return{
+          value: `http://192.168.102.234:8082/#/mobile?&type=${this.type}&id=${this.$store.state.apply.insuredId}`,//显示的值、跳转的地址
+          logo:'',
+          }
+        },
+        isSelect(){
+          return this.$store.state.apply.insuredId
+        }
     },
     methods: {
       beforeUpload(file){
-        if(!Storage.get("isSelect")){
+        if(!this.isSelect){
            this.$message.error('请先选择就诊人');
            return false;
         }

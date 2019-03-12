@@ -35,7 +35,7 @@ const apply = {
         edit_id:"",
         isUpdate:false,
         time:'',
-        insuredId:'',
+        insuredId:undefined,
         code:115,
         supply:""
        
@@ -58,6 +58,7 @@ const apply = {
             state.card_num=[],
             state.card_holder=[],
             state.info=[],
+            state.insuredId=undefined,
             data.forEach((item,index)=>{
             state.identify=state.identify.concat(item.idNumber)
             state.mobile=state.mobile.concat(item.mobile)
@@ -98,8 +99,8 @@ const apply = {
             state.bank_name=[],
             state.card_num=[],
             state.card_holder=[],
-            state.info=[]
-          
+            state.info=[],
+            state.insuredId=undefined
            //提交前获得数据
            
           },
@@ -123,6 +124,7 @@ const apply = {
             state.info=[],
             state.pic_list1=[],
             state.pic_list2=[],
+            state.insuredId=undefined,
             state.supply=data.supply,
             state.identify.push(res.idNumber)
             state.mobile.push(res.mobile)
@@ -273,7 +275,7 @@ const apply = {
             state.email=[]
             state.identify=[]
             state.info=[]
-            state.insuredId=""
+            state.insuredId=undefined
             state.mobile=[]
             state.options=[]
             state.pic_list1=[]
@@ -291,7 +293,7 @@ const apply = {
             state.email=[]
             state.identify=[]
             state.info=[]
-            state.insuredId=""
+            state.insuredId=undefined
             state.mobile=[]
             state.options=[]
             state.pic_list1=[]

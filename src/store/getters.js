@@ -1,13 +1,11 @@
 const getters = {
   sidebar: state => state.app.sidebar,
   language: state => state.app.language,
-  personId: state => state.app.personId,
   size: state => state.app.size,
   device: state => state.app.device,
   theme:state => state.app.theme,
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
-  token: state => state.user.token,
   avatar: state => state.user.avatar,
   name: state => state.user.name,
   introduction: state => state.user.introduction,
@@ -17,6 +15,10 @@ const getters = {
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
   errorLogs: state => state.errorLog.logs,
-  material:state => state.appMain.material
+  material:state => state.appMain.material,
+  token: state => state.login.token,
+  personId: state => state.login.personId,
+  tenantId: state => state.login.tenantId,
+ 
 }
 export default getters

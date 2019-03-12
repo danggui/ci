@@ -6,7 +6,7 @@ const user = {
     user: '',
     status: '',
     code: '',
-    token: getToken(),
+    token: '',
     name: '',
     avatar: '',
     introduction: '',
