@@ -18,6 +18,7 @@ import './icons' // icon
 import api from '@/http'
 import {setPerson} from '@/utils/auth.js'
 import './permission' // permission control
+import 'babel-polyfill'
 Vue.config.productionTip = false
 /*
 Vue.use(Element, {
